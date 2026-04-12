@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-black-base: #050505;
+  --color-cyan-accent: #00F5FF;
+  --color-violet-accent: #7A5CFF;
+}
+
+@layer base {
+  body {
+    @apply antialiased overflow-x-hidden;
+    background-color: var(--color-black-base);
+    color: white;
+    font-family: 'Inter', 'Satoshi', sans-serif;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
