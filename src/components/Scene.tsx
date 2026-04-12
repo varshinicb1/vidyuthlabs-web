@@ -3,8 +3,9 @@ import { useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
-const GRID_SIZE = 100; // Increased density for realistic fabric
-const GRID_SPACING = 0.35;
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+const GRID_SIZE = isMobile ? 60 : 100; // Drastically reduce points on mobile
+const GRID_SPACING = isMobile ? 0.5 : 0.35;
 
 function SensorWaveGrid() {
   const pointsRef = useRef<THREE.Points>(null);
@@ -57,19 +58,18 @@ function SensorWaveGrid() {
       let index = 0;
       for (let i = 0; i < GRID_SIZE; i++) {
         for (let j = 0; j < GRID_SIZE; j++) {
+          // Pre-cache variables for performance speedup
           const x = (i - GRID_SIZE / 2) * GRID_SPACING;
           const z = (j - GRID_SIZE / 2) * GRID_SPACING;
           
-          // Realistic fabric multi-octave surface math
-          // Fundamental wave
-          let y = Math.sin(x * 0.15 + time * 0.4) * 0.8;
-          y += Math.cos(z * 0.15 + time * 0.3) * 0.8;
-          
-          // Secondary wave (finer details)
+          // Simplified fabric multi-octave math to prevent JS thread blocking
+          let y = Math.sin(x * 0.15 + time * 0.4) * 0.8 + Math.cos(z * 0.15 + time * 0.3) * 0.8;
           y += Math.sin(x * 0.4 - time * 0.2 + z * 0.2) * 0.3;
           
-          // Tertiary wave (micro ripples)
-          y += Math.cos(x * 0.8 + z * 0.8 + time * 0.5) * 0.1;
+          // Disable tertiary micro ripples on mobile for performance
+          if (!isMobile) {
+            y += Math.cos(x * 0.8 + z * 0.8 + time * 0.5) * 0.1;
+          }
           
           // Subtle overarching swell
           y += Math.sin((x * x + z * z) * 0.02 + time * 0.6) * 0.5;
@@ -121,7 +121,7 @@ export function Scene() {
       <SensorWaveGrid />
       
       <EffectComposer>
-        <Bloom luminanceThreshold={0.5} mipmapBlur luminanceSmoothing={0.9} intensity={2.0} />
+        <Bloom luminanceThreshold={0.5} mipmapBlur={!isMobile} luminanceSmoothing={0.9} intensity={2.0} />
       </EffectComposer>
     </>
   );
