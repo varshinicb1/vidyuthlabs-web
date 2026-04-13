@@ -7,11 +7,20 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply antialiased overflow-x-hidden;
     background-color: var(--color-black-base);
     color: white;
-    font-family: 'Inter', 'Satoshi', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  ::selection {
+    background: rgba(0, 245, 255, 0.25);
+    color: white;
   }
 }
 
@@ -23,4 +32,35 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+/* Ambient glow keyframes for reuse */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; filter: blur(60px); }
+  50% { opacity: 0.7; filter: blur(80px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.06; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Font classes */
+.font-mono-tight {
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
 }

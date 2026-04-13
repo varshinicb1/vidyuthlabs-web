@@ -9,8 +9,8 @@ export function Logo({ className = "", showText = true }: LogoProps) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <motion.svg 
-        width="40" 
-        height="40" 
+        width="36" 
+        height="36" 
         viewBox="0 0 100 100" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
@@ -24,10 +24,14 @@ export function Logo({ className = "", showText = true }: LogoProps) {
             <feGaussianBlur stdDeviation="3" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
+          <linearGradient id="cvGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#00F5FF" />
+            <stop offset="50%" stopColor="#7A5CFF" />
+            <stop offset="100%" stopColor="#00F5FF" />
+          </linearGradient>
         </defs>
 
         {/* Abstract Cyclic Voltammetry (CV) Curve */}
-        {/* Path: Start mid-left -> sweep right -> oxidation peak up -> sweep left -> reduction peak down -> return */}
         <motion.path
           d="M 15,50 
              C 35,50 45,45 60,15 
@@ -43,14 +47,6 @@ export function Logo({ className = "", showText = true }: LogoProps) {
           animate={{ pathLength: 1 }}
           transition={{ duration: 2, ease: "easeInOut", delay: 0.5 }}
         />
-
-        <defs>
-          <linearGradient id="cvGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#00F5FF" />
-            <stop offset="50%" stopColor="#7A5CFF" />
-            <stop offset="100%" stopColor="#00F5FF" />
-          </linearGradient>
-        </defs>
       </motion.svg>
 
       {showText && (
@@ -58,7 +54,7 @@ export function Logo({ className = "", showText = true }: LogoProps) {
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-white font-semibold tracking-[0.15em] text-sm md:text-base uppercase drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
+          className="text-white font-semibold tracking-[0.15em] text-sm uppercase drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
         >
           VidyuthLabs
         </motion.span>
