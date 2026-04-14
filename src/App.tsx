@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { Game } from './components/Game';
 import { useGameStore, Section } from './store';
+import { Smartphone } from 'lucide-react';
 
 const SECTIONS: { id: Section; title: string; subtitle: string; content: string }[] = [
   { id: 'hero', title: 'AnalyteX', subtitle: 'The Future of Physical AI.', content: 'Lab-grade electrochemistry on your palm. Precision meets portability.' },
@@ -155,6 +156,21 @@ export default function App() {
 
   return (
     <div className="bg-black text-white font-sans selection:bg-cyan-500 selection:text-black">
+      {/* Mobile Portrait Overlay */}
+      <div className="fixed inset-0 z-[100] flex-col items-center justify-center bg-black text-white p-8 text-center flex md:hidden landscape:hidden">
+        <motion.div 
+          animate={{ rotate: 90 }}
+          transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
+          className="mb-8"
+        >
+          <Smartphone strokeWidth={1} className="w-20 h-20 text-cyan-400" />
+        </motion.div>
+        <h2 className="text-2xl font-black tracking-tight mb-3">Rotate your device</h2>
+        <p className="text-gray-400 text-sm max-w-[250px] leading-relaxed">
+          For the best cinematic experience, please view this website in landscape mode.
+        </p>
+      </div>
+
       {/* 3D Background - Fixed */}
       <div className="fixed inset-0 z-0">
         <Game />
