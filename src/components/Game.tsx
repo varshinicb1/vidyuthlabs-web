@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment, ContactShadows, Text, Line } from '@react-three/drei';
 import * as THREE from 'three';
 import { AnalyteX } from './AnalyteX';
@@ -444,9 +444,18 @@ function Scene() {
   const vidyutRef = useRef<THREE.Group>(null);
   const totalScrollProgress = useGameStore(state => state.totalScrollProgress);
 
+  const { camera, size } = useThree();
+
   useFrame((state) => {
     const t = totalScrollProgress;
     const isMobile = window.innerWidth < 768;
+    
+    // Dynamically adjust FOV based on aspect ratio to prevent clipping in portrait mode
+    const aspect = size.width / size.height;
+    const targetFov = aspect < 1 ? 45 + (1 - aspect) * 60 : 45; // Widen FOV heavily on narrow screens
+    (camera as THREE.PerspectiveCamera).fov = THREE.MathUtils.lerp((camera as THREE.PerspectiveCamera).fov, targetFov, 0.1);
+    camera.updateProjectionMatrix();
+
     const mobileYOffset = isMobile ? 1.5 : 0; // Shift camera lookAt down to move model up
     const mobileZOffset = isMobile ? 2 : 0;   // Pull camera back slightly on mobile
 
