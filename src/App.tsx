@@ -8,6 +8,7 @@ import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { Game } from './components/Game';
 import { useGameStore, Section } from './store';
 import { Smartphone } from 'lucide-react';
+import founderImg from './assets/varshini.png';
 
 const SECTIONS: { id: Section; title: string; subtitle: string; content: string }[] = [
   { id: 'hero', title: 'AnalyteX', subtitle: 'The Future of Physical AI.', content: 'Lab-grade electrochemistry on your palm. Precision meets portability.' },
@@ -60,7 +61,7 @@ function SectionContent({ section, index }: { section: typeof SECTIONS[0], index
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
               <div className="w-32 h-32 md:w-48 md:h-48 shrink-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
                  <img 
-                   src="https://picsum.photos/seed/founder/400/400" 
+                   src={founderImg} 
                    alt="Varshini CB" 
                    className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500"
                    referrerPolicy="no-referrer"
@@ -77,7 +78,7 @@ function SectionContent({ section, index }: { section: typeof SECTIONS[0], index
                 </div>
 
                 <a 
-                  href="https://linkedin.com/in/varshini-cb" 
+                  href="https://www.linkedin.com/in/varshini-cb-821176360/" 
                   target="_blank" 
                   rel="noreferrer"
                   className="inline-flex items-center justify-center md:justify-start gap-2 mt-6 px-6 py-3 bg-[#0077b5] text-white text-sm font-bold rounded-full hover:bg-[#005582] transition-colors pointer-events-auto w-fit mx-auto md:mx-0 shadow-lg shadow-[#0077b5]/20"
