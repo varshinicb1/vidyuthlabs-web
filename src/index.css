@@ -3,10 +3,32 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-primary-light: #ffffff;
+  --color-primary-dark: #000000;
+  --color-accent-teal: #00e5ff;
+  --color-accent-teal-dark: #008b99;
+  --color-accent-coral: #ff4d6d;
+  --color-surface-light: #f8fafc;
+  --color-surface-dark: #0f172a;
 }
 
 @layer base {
   body {
-    @apply bg-black text-white antialiased;
+    @apply antialiased transition-colors duration-1000;
+  }
+}
+
+@layer utilities {
+  .glass-card-light {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+  }
+  .glass-card-dark {
+    @apply bg-black/60 backdrop-blur-md border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.12)];
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-400;
+  }
+  .text-gradient-coral {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-coral-500 to-rose-400;
   }
 }

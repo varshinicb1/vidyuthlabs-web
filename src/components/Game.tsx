@@ -15,8 +15,8 @@ function MobilePhone({ progress }: { progress: number }) {
     if (progress > 0.35 && progress < 0.5) {
       ref.current.visible = true;
       // Slide in from right
-      const targetX = progress < 0.38 ? THREE.MathUtils.lerp(5, 2, (progress - 0.35) / 0.03) : 
-                      progress > 0.46 ? THREE.MathUtils.lerp(2, 5, (progress - 0.46) / 0.04) : 2;
+      const targetX = progress < 0.38 ? THREE.MathUtils.lerp(6, 2.8, (progress - 0.35) / 0.03) : 
+                      progress > 0.46 ? THREE.MathUtils.lerp(2.8, 6, (progress - 0.46) / 0.04) : 2.8;
       ref.current.position.lerp(new THREE.Vector3(targetX, 0, 2), 0.1);
       ref.current.rotation.y = -Math.PI / 6;
     } else {
@@ -51,12 +51,12 @@ function MobilePhone({ progress }: { progress: number }) {
           <planeGeometry args={[1.8, 1.2]} />
           <meshBasicMaterial color="#1a1a1a" />
         </mesh>
-        <Text position={[-0.8, 1.2, 0.01]} fontSize={0.1} color="gray" anchorX="left">LATEST SCAN</Text>
-        <Text position={[-0.8, 0.9, 0.01]} fontSize={0.18} color="#fff" anchorX="left">Troponin I</Text>
-        <Text position={[0.8, 0.9, 0.01]} fontSize={0.18} color="#ff3366" anchorX="right">0.04 ng/mL</Text>
+        <Text position={[-0.8, 1.2, 0.01]} fontSize={0.10} color="gray" anchorX="left">LATEST SCAN</Text>
+        <Text position={[-0.8, 0.95, 0.01]} fontSize={0.16} color="#fff" anchorX="left">Troponin I</Text>
+        <Text position={[-0.8, 0.70, 0.01]} fontSize={0.20} color="#ff3366" anchorX="left">0.04 ng/mL</Text>
         
         {/* Graph Mockup */}
-        <Line points={[[-0.8, 0.4, 0.01], [-0.4, 0.4, 0.01], [0, 0.7, 0.01], [0.4, 0.3, 0.01], [0.8, 0.6, 0.01]]} color="#00ffcc" lineWidth={2} />
+        <Line points={[[-0.8, 0.4, 0.01], [-0.4, 0.4, 0.01], [0, 0.65, 0.01], [0.4, 0.35, 0.01], [0.8, 0.55, 0.01]]} color="#00ffcc" lineWidth={2} />
         
         <mesh position={[0, -0.4, 0]}>
           <planeGeometry args={[1.8, 0.8]} />
@@ -183,7 +183,7 @@ function SwarmVisualization({ progress }: { progress: number }) {
   const linesRef = useRef<THREE.LineSegments>(null);
   const nodesRef = useRef<THREE.InstancedMesh>(null);
 
-  const NODE_COUNT = 120;
+  const NODE_COUNT = 75;
   const MAX_DISTANCE = 1.8;
   const SPHERE_RADIUS = 3;
 
@@ -429,13 +429,11 @@ function LiquidDrop({ progress }: { progress: number }) {
         ref={materialRef}
         color="#880000" 
         transparent 
-        opacity={0.9} 
+        opacity={0.8} 
         roughness={0.05} 
         metalness={0.1} 
         clearcoat={1.0} 
         clearcoatRoughness={0.1}
-        transmission={0.5}
-        thickness={0.5}
       />
     </mesh>
   );
@@ -611,14 +609,14 @@ function Scene() {
       <WhyUsVisual progress={totalScrollProgress} />
       <SwarmVisualization progress={totalScrollProgress} />
 
-      <ContactShadows position={[0, -2, 0]} opacity={0.4} scale={20} blur={2} far={10} />
+      <ContactShadows position={[0, -2, 0]} opacity={0.4} scale={20} blur={2} far={10} resolution={256} />
     </>
   );
 }
 
 export function Game() {
   return (
-    <Canvas shadows camera={{ position: [0, 0, 10], fov: 45 }}>
+    <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 0, 10], fov: 45 }}>
       <color attach="background" args={['#000000']} />
       <Scene />
     </Canvas>

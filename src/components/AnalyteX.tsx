@@ -272,10 +272,6 @@ export function AnalyteX() {
               </group>
             </group>
 
-            {/* Header */}
-            <Text position={[0, 0.85, 0]} fontSize={0.12} color="#00ffcc" anchorY="top" letterSpacing={0.1}>
-              ANALYTEX OS v2.0
-            </Text>
 
             {/* Dynamic Content */}
             {screenState === 'READY' && (
