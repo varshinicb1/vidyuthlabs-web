@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Linkedin, Mail, Twitter, ChevronRight } from 'lucide-react';
+import founderImg from '../assets/varshini.png';
 
 export function TeamFooter() {
   return (
@@ -26,7 +27,7 @@ export function TeamFooter() {
           >
             <div className="w-48 h-48 rounded-2xl overflow-hidden shrink-0 bg-gray-100 shadow-inner">
               <img 
-                src="https://picsum.photos/seed/founder/400/400" 
+                src={founderImg} 
                 alt="Varshini CB" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" 
               />
@@ -49,7 +50,7 @@ export function TeamFooter() {
               </div>
 
               <div className="flex justify-center md:justify-start gap-4">
-                <a href="https://linkedin.com/in/varshini-cb" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-[#0077b5]/10 text-[#0077b5] flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-colors">
+                <a href="https://www.linkedin.com/in/varshini-cb-821176360/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-[#0077b5]/10 text-[#0077b5] flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-colors">
                   <Linkedin className="w-5 h-5" />
                 </a>
               </div>
