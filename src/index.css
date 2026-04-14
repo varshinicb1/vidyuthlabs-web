@@ -29,6 +29,6 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-400;
   }
   .text-gradient-coral {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-coral-500 to-rose-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-rose-400;
   }
 }
