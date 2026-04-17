@@ -7,7 +7,6 @@ import { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { Game } from './components/Game';
 import { useGameStore, Section } from './store';
-import { Smartphone } from 'lucide-react';
 import founderImg from './assets/varshini.png';
 
 const SECTIONS: { id: Section; title: string; subtitle: string; content: string }[] = [
@@ -37,22 +36,22 @@ function SectionContent({ section, index }: { section: typeof SECTIONS[0], index
 
   return (
     <div 
-      className={`min-h-[150vh] flex flex-col ${index % 2 === 0 ? 'md:items-start md:text-left' : 'md:items-end md:text-right'} items-center text-center justify-center px-6 md:px-24 max-w-7xl mx-auto pointer-events-none`}
+      className={`min-h-[150dvh] flex flex-col ${index % 2 === 0 ? 'md:items-start md:text-left' : 'md:items-end md:text-right'} items-center text-center justify-center px-6 md:px-12 lg:px-24 max-w-7xl mx-auto pointer-events-none`}
     >
       <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-20%" }}
-        transition={{ duration: 0.8 }}
-        className="max-w-xl pointer-events-auto bg-black/60 md:bg-transparent p-6 md:p-0 rounded-3xl backdrop-blur-md md:backdrop-blur-none border border-white/10 md:border-none shadow-2xl md:shadow-none mt-[50vh] md:mt-0"
+        initial={{ opacity: 0, scale: 0.95, y: 30 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: false, margin: "-10%" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="max-w-[95vw] sm:max-w-lg md:max-w-xl lg:max-w-3xl pointer-events-auto bg-black/60 md:bg-transparent p-6 md:p-8 lg:p-0 rounded-3xl backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.5)] md:shadow-none mt-[40dvh] md:mt-0"
       >
-        <motion.h2 className="text-xs md:text-sm uppercase tracking-[0.4em] text-cyan-400 mb-2 md:mb-4 font-black">
+        <motion.h2 className="text-[10px] md:text-xs lg:text-sm uppercase tracking-[0.4em] text-accent-teal mb-2 md:mb-4 font-black drop-shadow-md">
           {section.id === 'vision' ? 'Meet the CEO' : section.title}
         </motion.h2>
-        <motion.h1 className="text-3xl md:text-8xl font-black tracking-tighter text-white mb-4 md:mb-6 leading-none">
+        <motion.h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter text-white mb-3 sm:mb-4 md:mb-6 leading-none drop-shadow-2xl">
           {section.id === 'hero' ? section.title : section.subtitle}
         </motion.h1>
-        <motion.p className="text-sm md:text-2xl text-gray-300 leading-relaxed md:leading-tight mb-0 md:mb-8 font-medium">
+        <motion.p className="text-sm sm:text-base md:text-xl lg:text-2xl text-gray-300 leading-relaxed md:leading-tight mb-0 md:mb-8 font-medium">
           {section.content}
         </motion.p>
         
@@ -120,10 +119,16 @@ function SectionContent({ section, index }: { section: typeof SECTIONS[0], index
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[60]"
         >
-          <span className="text-[10px] uppercase tracking-widest text-gray-600">Scroll for Cinematic Experience</span>
-          <div className="w-px h-12 bg-gradient-to-b from-cyan-400 to-transparent" />
+          <span className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold drop-shadow-md">Scroll to Explore</span>
+          <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1 relative backdrop-blur-md shadow-[0_0_20px_rgba(0,229,255,0.15)] bg-black/20">
+            <motion.div 
+              className="w-1.5 h-3 bg-accent-teal rounded-full shadow-[0_0_10px_rgba(0,229,255,0.8)]"
+              animate={{ y: [0, 16, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            />
+          </div>
         </motion.div>
       )}
     </div>
@@ -139,7 +144,7 @@ export default function App() {
 
   const scrollToSection = (index: number) => {
     window.scrollTo({
-      top: index * window.innerHeight,
+      top: index * window.innerHeight * 1.5,
       behavior: 'smooth'
     });
   };
@@ -157,21 +162,6 @@ export default function App() {
 
   return (
     <div className="bg-black text-white font-sans selection:bg-cyan-500 selection:text-black">
-      {/* Mobile Portrait Overlay */}
-      <div className="fixed inset-0 z-[100] flex-col items-center justify-center bg-black text-white p-8 text-center flex md:hidden landscape:hidden">
-        <motion.div 
-          animate={{ rotate: 90 }}
-          transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
-          className="mb-8"
-        >
-          <Smartphone strokeWidth={1} className="w-20 h-20 text-cyan-400" />
-        </motion.div>
-        <h2 className="text-2xl font-black tracking-tight mb-3">Rotate your device</h2>
-        <p className="text-gray-400 text-sm max-w-[250px] leading-relaxed">
-          For the best cinematic experience, please view this website in landscape mode.
-        </p>
-      </div>
-
       {/* 3D Background - Fixed */}
       <div className="fixed inset-0 z-0">
         <Game />
@@ -201,14 +191,56 @@ export default function App() {
       <div className="fixed bottom-8 left-8 z-50">
         <div className="flex items-center gap-4">
           <div className="text-[10px] font-mono text-gray-500">01</div>
-          <div className="w-32 h-px bg-gray-800 relative">
+          <div className="w-24 md:w-32 h-px bg-gray-800 relative">
             <motion.div 
-              className="absolute top-0 left-0 h-full bg-cyan-500"
+              className="absolute top-0 left-0 h-full bg-cyan-500 shadow-[0_0_8px_rgba(0,229,255,0.6)]"
               style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
             />
           </div>
           <div className="text-[10px] font-mono text-gray-500">13</div>
         </div>
+      </div>
+
+      {/* Side Navigation Dots */}
+      <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+        {SECTIONS.map((section, i) => {
+          // Calculate the active ranges for the current section
+          const range = 1 / SECTIONS.length;
+          const center = i * range + range / 2;
+          
+          return (
+            <button
+              key={section.id}
+              onClick={() => scrollToSection(i)}
+              className="group relative flex items-center justify-end w-8 h-4 focus:outline-none cursor-pointer"
+              aria-label={`Scroll to ${section.title}`}
+            >
+              <span className="absolute right-6 px-2 py-1 rounded bg-black/80 backdrop-blur-md border border-white/10 text-[10px] text-gray-300 font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none drop-shadow-xl">
+                {section.title}
+              </span>
+              <motion.div
+                className="w-1.5 h-1.5 rounded-full bg-white/20 transition-colors duration-300 group-hover:bg-accent-teal"
+                style={{
+                  backgroundColor: useTransform(
+                    scrollYProgress,
+                    [center - range, center, center + range],
+                    ['rgba(255,255,255,0.2)', '#00e5ff', 'rgba(255,255,255,0.2)']
+                  ),
+                  scale: useTransform(
+                    scrollYProgress,
+                    [center - range, center, center + range],
+                    [1, 1.6, 1]
+                  ),
+                  boxShadow: useTransform(
+                    scrollYProgress,
+                    [center - range, center - range/2, center, center + range/2, center + range],
+                    ['0 0 0 rgba(0,229,255,0)', '0 0 8px rgba(0,229,255,0.4)', '0 0 12px rgba(0,229,255,0.8)', '0 0 8px rgba(0,229,255,0.4)', '0 0 0 rgba(0,229,255,0)']
+                  )
+                }}
+              />
+            </button>
+          );
+        })}
       </div>
     </div>
   );
