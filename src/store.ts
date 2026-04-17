@@ -5,7 +5,7 @@
 
 import { create } from 'zustand';
 
-export type Section = 'hero' | 'product-demo' | 'how-it-works' | 'problem-we-solve' | 'applications' | 'vision' | 'team';
+export type Section = 'hero' | 'sensor' | 'insertion' | 'sample' | 'analysis' | 'mobile' | 'results' | 'applications' | 'competitors' | 'why-us' | 'target-market' | 'future' | 'vision';
 
 interface GameStore {
   activeSection: Section;

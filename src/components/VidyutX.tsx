@@ -51,7 +51,7 @@ export function VidyutX({ isFloating = true }: { isFloating?: boolean }) {
           rotation={[-Math.PI / 2, 0, 0]}
           fontSize={0.18}
           color="#ffd700"
-          font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf"
+         
         >
           VidyutX
         </Text>

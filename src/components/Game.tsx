@@ -1,6 +1,6 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, ContactShadows, Text, Line } from '@react-three/drei';
+import { Environment, ContactShadows, Text, Line, Float, Stars, Grid } from '@react-three/drei';
 import * as THREE from 'three';
 import { AnalyteX } from './AnalyteX';
 import { VidyutX } from './VidyutX';
@@ -26,16 +26,17 @@ function MobilePhone({ progress }: { progress: number }) {
 
   return (
     <group ref={ref} visible={false}>
-      {/* Phone Body */}
-      <mesh castShadow receiveShadow>
-        <boxGeometry args={[2.2, 4.4, 0.2]} />
-        <meshStandardMaterial color="#111" roughness={0.2} metalness={0.8} />
-      </mesh>
-      {/* Screen */}
-      <mesh position={[0, 0, 0.11]}>
-        <planeGeometry args={[2.0, 4.2]} />
-        <meshStandardMaterial color="#050505" />
-      </mesh>
+      <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
+        {/* Phone Body */}
+        <mesh castShadow receiveShadow>
+          <boxGeometry args={[2.2, 4.4, 0.2]} />
+          <meshStandardMaterial color="#0a0a0a" roughness={0.1} metalness={0.9} />
+        </mesh>
+        {/* Screen */}
+        <mesh position={[0, 0, 0.11]}>
+          <planeGeometry args={[2.0, 4.2]} />
+          <meshStandardMaterial color="#050505" emissive="#050505" />
+        </mesh>
       {/* App UI */}
       <group position={[0, 0, 0.12]}>
         {/* Header */}
@@ -43,7 +44,7 @@ function MobilePhone({ progress }: { progress: number }) {
           <planeGeometry args={[2.0, 0.6]} />
           <meshBasicMaterial color="#111" />
         </mesh>
-        <Text position={[-0.8, 1.8, 0.01]} fontSize={0.12} color="#00ffcc" anchorX="left" font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf">VidyuthLabs</Text>
+        <Text position={[-0.8, 1.8, 0.01]} fontSize={0.12} color="#00ffcc" anchorX="left">VidyuthLabs</Text>
         <Text position={[0.8, 1.8, 0.01]} fontSize={0.08} color="gray" anchorX="right">SYNCED</Text>
         
         {/* Dashboard Cards */}
@@ -72,6 +73,7 @@ function MobilePhone({ progress }: { progress: number }) {
         <Text position={[-0.8, -1.2, 0.01]} fontSize={0.1} color="gray" anchorX="left">RECOMMENDATION</Text>
         <Text position={[-0.8, -1.5, 0.01]} fontSize={0.12} color="#fff" anchorX="left">Immediate Cardiology Consult</Text>
       </group>
+      </Float>
     </group>
   );
 }
@@ -123,24 +125,24 @@ function MarketGapVisual({ progress }: { progress: number }) {
   return (
     <group position={[20, 0, 0]} visible={isVisible} ref={ref}>
       {/* Big heavy traditional machine */}
-      <group position={[-2, -1, 0]}>
+      <Float speed={1} rotationIntensity={0.1} floatIntensity={0.2} position={[-2, -1, 0]}>
         <mesh castShadow>
           <boxGeometry args={[3, 4, 3]} />
-          <meshStandardMaterial color="#333" roughness={0.9} metalness={0.1} />
+          <meshStandardMaterial color="#222" roughness={0.9} metalness={0.1} />
         </mesh>
         <Text position={[0, 2.5, 0]} fontSize={0.3} color="#ff3366">TRADITIONAL</Text>
         <Text position={[0, 0, 1.51]} fontSize={0.2} color="gray">5 KG / ₹8L+</Text>
-      </group>
+      </Float>
       
       {/* Sleek VidyutX */}
-      <group position={[2, -1, 0]}>
+      <Float speed={3} rotationIntensity={0.5} floatIntensity={0.8} position={[2, -1, 0]}>
         <mesh castShadow>
           <boxGeometry args={[1, 1.5, 0.2]} />
-          <meshPhysicalMaterial color="#111" roughness={0.2} metalness={0.8} />
+          <meshPhysicalMaterial color="#0a0a0a" roughness={0.1} metalness={0.9} />
         </mesh>
         <Text position={[0, 2.5, 0]} fontSize={0.3} color="#00ffcc">ANALYTEX</Text>
         <Text position={[0, 0, 0.11]} fontSize={0.15} color="#00ffcc">150g / ₹25k</Text>
-      </group>
+      </Float>
     </group>
   );
 }
@@ -156,6 +158,7 @@ function WhyUsVisual({ progress }: { progress: number }) {
   const isVisible = progress > 0.65 && progress < 0.80;
   return (
     <group position={[30, 0, 0]} visible={isVisible}>
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
       <group ref={ref}>
         {/* Glowing Microchip / Core */}
         <mesh>
@@ -174,6 +177,7 @@ function WhyUsVisual({ progress }: { progress: number }) {
           ]} color="#00ffcc" transparent opacity={0.5} />
         ))}
       </group>
+      </Float>
     </group>
   );
 }
@@ -439,6 +443,41 @@ function LiquidDrop({ progress }: { progress: number }) {
   );
 }
 
+function QuantumFabric() {
+  const meshRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state) => {
+    if (!meshRef.current) return;
+    const t = state.clock.getElapsedTime();
+    // Subtle wave motion
+    meshRef.current.rotation.z = Math.sin(t * 0.1) * 0.05;
+    
+    // Wave the vertices slightly via position
+    const positions = (meshRef.current.geometry as THREE.BufferGeometry).attributes.position;
+    for (let i = 0; i < positions.count; i++) {
+        const x = positions.getX(i);
+        const y = positions.getY(i);
+        const z = Math.sin(x * 0.5 + t) * Math.cos(y * 0.5 + t) * 0.3;
+        positions.setZ(i, z);
+    }
+    positions.needsUpdate = true;
+  });
+
+  return (
+    <mesh ref={meshRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, -3, -5]}>
+      <planeGeometry args={[100, 100, 50, 50]} />
+      <meshStandardMaterial 
+        color="#00e5ff" 
+        wireframe 
+        transparent 
+        opacity={0.03} 
+        emissive="#00e5ff"
+        emissiveIntensity={0.5}
+      />
+    </mesh>
+  );
+}
+
 function Scene() {
   const analyteRef = useRef<THREE.Group>(null);
   const vidyutRef = useRef<THREE.Group>(null);
@@ -454,6 +493,14 @@ function Scene() {
     const aspect = size.width / size.height;
     const targetFov = aspect < 1 ? 45 + (1 - aspect) * 60 : 45; // Widen FOV heavily on narrow screens
     (camera as THREE.PerspectiveCamera).fov = THREE.MathUtils.lerp((camera as THREE.PerspectiveCamera).fov, targetFov, 0.1);
+    
+    if (!isMobile) {
+      // Shift camera view left by exactly 25% of the screen width for side-by-side layout
+      (camera as THREE.PerspectiveCamera).setViewOffset(size.width, size.height, size.width * 0.25, 0, size.width, size.height);
+    } else {
+      (camera as THREE.PerspectiveCamera).clearViewOffset();
+    }
+    
     camera.updateProjectionMatrix();
 
     const mobileYOffset = isMobile ? 1.5 : 0; // Shift camera lookAt down to move model up
@@ -470,11 +517,9 @@ function Scene() {
       targetPos.set(0, 0, 6 + mobileZOffset);
       targetLookAt.set(0, -mobileYOffset, 0);
     } else if (t < 0.23) { // Insertion
-      // Full screen view looking down at the device
       targetPos.set(0, 5 + (isMobile ? 2 : 0), -0.5);
       targetLookAt.set(0, 0, -0.5);
     } else if (t < 0.30) { // Sample
-      // Zoom in on the electrode for the drop
       targetPos.set(0, 3 + (isMobile ? 1 : 0), 1.5);
       targetLookAt.set(0, 0, 1.5);
     } else if (t < 0.38) { // Analysis
@@ -506,12 +551,12 @@ function Scene() {
       targetLookAt.set(0, -mobileYOffset, 0);
     }
 
-    state.camera.position.lerp(targetPos, 0.04);
+    state.camera.position.lerp(targetPos, 0.02);
     
     const currentLookAt = new THREE.Vector3();
     state.camera.getWorldDirection(currentLookAt);
     currentLookAt.add(state.camera.position);
-    currentLookAt.lerp(targetLookAt, 0.04);
+    currentLookAt.lerp(targetLookAt, 0.02);
     state.camera.lookAt(currentLookAt);
 
     // Device & Sensor Transforms
@@ -588,11 +633,11 @@ function Scene() {
         vPos.set(0, 15, 0);
       }
 
-      analyteRef.current.position.lerp(aPos, 0.1);
-      analyteRef.current.quaternion.slerp(new THREE.Quaternion().setFromEuler(aRot), 0.1);
+      analyteRef.current.position.lerp(aPos, 0.05);
+      analyteRef.current.quaternion.slerp(new THREE.Quaternion().setFromEuler(aRot), 0.05);
       
-      vidyutRef.current.position.lerp(vPos, 0.1);
-      vidyutRef.current.quaternion.slerp(new THREE.Quaternion().setFromEuler(vRot), 0.1);
+      vidyutRef.current.position.lerp(vPos, 0.05);
+      vidyutRef.current.quaternion.slerp(new THREE.Quaternion().setFromEuler(vRot), 0.05);
     }
   });
 
@@ -618,7 +663,22 @@ function Scene() {
       <WhyUsVisual progress={totalScrollProgress} />
       <SwarmVisualization progress={totalScrollProgress} />
 
-      <ContactShadows position={[0, -2, 0]} opacity={0.4} scale={20} blur={2} far={10} resolution={256} />
+      <QuantumFabric />
+      
+      <Grid
+        position={[0, -2.5, 0]}
+        sectionSize={1.5}
+        sectionColor="#008899"
+        sectionThickness={1.5}
+        cellSize={0.5}
+        cellColor="#003344"
+        cellThickness={0.8}
+        infiniteGrid
+        fadeDistance={40}
+        fadeStrength={5}
+      />
+
+      <ContactShadows position={[0, -2.4, 0]} opacity={0.4} scale={20} blur={2} far={10} resolution={256} />
     </>
   );
 }
@@ -627,7 +687,9 @@ export function Game() {
   return (
     <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 0, 10], fov: 45 }}>
       <color attach="background" args={['#000000']} />
-      <Scene />
+      <Suspense fallback={null}>
+        <Scene />
+      </Suspense>
     </Canvas>
   );
 }
