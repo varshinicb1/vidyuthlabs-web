@@ -27,7 +27,7 @@ export function VisionTimeline() {
           {[
             {
               year: 'Phase 1',
-              title: 'AnalyteX & VidyutX',
+              title: 'AnalyteX & NanoX',
               desc: 'Establishing lab-grade pocket diagnostics.',
               active: true
             },

@@ -1,14 +1,14 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Float, Text, MeshDistortMaterial } from '@react-three/drei';
 
-export function VidyutX({ isFloating = true }: { isFloating?: boolean }) {
+export function NanoX({ isFloating = true }: { isFloating?: boolean }) {
   const meshRef = useRef<THREE.Group>(null);
 
   return (
@@ -53,7 +53,7 @@ export function VidyutX({ isFloating = true }: { isFloating?: boolean }) {
           color="#ffd700"
          
         >
-          VidyutX
+          NanoX
         </Text>
         <Text
           position={[0, 0.03, 0.8]}

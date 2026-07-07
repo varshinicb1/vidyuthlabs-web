@@ -4,7 +4,7 @@ import { Droplet, Activity, Smartphone } from 'lucide-react';
 const steps = [
   {
     title: 'Drop',
-    description: 'Place a single drop of sample on the disposable VidyutX sensor strip.',
+    description: 'Place a single drop of sample on the disposable NanoX sensor strip.',
     icon: Droplet,
   },
   {

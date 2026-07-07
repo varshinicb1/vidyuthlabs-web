@@ -3,18 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'motion/react';
 import { Game } from './components/Game';
 import { useGameStore, Section } from './store';
 import { UsecasesPage } from './components/UsecasesPage';
 import { FuturePage } from './components/FuturePage';
 import founderImg from './assets/varshini.png';
+import manjunathaImg from './assets/manjunatha.jpg';
 
 const SECTIONS: { id: Section; title: string; subtitle: string; content: string }[] = [
   { id: 'hero', title: 'AnalyteX', subtitle: 'The Future of Physical AI.', content: 'Lab-grade electrochemistry on your palm. Precision meets portability.' },
-  { id: 'sensor', title: 'VidyutX Sensor', subtitle: 'Precision Engineering.', content: 'High-sensitivity PCB-based detection with CE, WE, and RE contacts.' },
-  { id: 'insertion', title: 'Seamless Integration', subtitle: 'Plug and Play.', content: 'Insert the VidyutX sensor into the AnalyteX device to begin.' },
+  { id: 'sensor', title: 'NanoX Sensor', subtitle: 'Precision Engineering.', content: 'High-sensitivity PCB-based detection with CE, WE, and RE contacts.' },
+  { id: 'insertion', title: 'Seamless Integration', subtitle: 'Plug and Play.', content: 'Insert the NanoX sensor into the AnalyteX device to begin.' },
   { id: 'sample', title: 'Single Drop Diagnostics', subtitle: 'Comprehensive Analysis.', content: 'One drop unlocks everything: Cyclic Voltammetry (CV) for redox behavior, EIS for binding kinetics, and DPV for ultra-trace quantification.' },
   { id: 'analysis', title: 'Live Scanning', subtitle: 'Real-time CV & EIS.', content: 'Precise instrument readings generated instantly on the device.' },
   { id: 'mobile', title: 'Mobile Sync', subtitle: 'Cloud Connected.', content: 'Seamlessly communicates with the VidyuthLabs mobile app.' },
@@ -64,7 +65,7 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
         onClick={e => e.stopPropagation()}
         role="dialog"
       >
-        <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tighter italic">VidyuthX Waitlist</h2>
+        <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tighter italic">VidyuthLabs Waitlist</h2>
         <p className="text-gray-400 mb-8 text-sm leading-relaxed border-l-2 border-cyan-400 pl-4 font-medium uppercase tracking-widest">
           Join the priority queue for India's first portable Physical AI diagnostic node.
         </p>
@@ -137,6 +138,7 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
 }
 
 interface SectionContentProps {
+  key?: any;
   section: typeof SECTIONS[0];
   index: number;
   onWaitlistClick: () => void;
@@ -180,33 +182,59 @@ function SectionContent({ section, index, onWaitlistClick, onFutureClick }: Sect
         )}
         
         {section.id === 'vision' && (
-          <div className="flex flex-col items-center md:items-start gap-6 mt-6 md:mt-12">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-              <div className="w-32 h-32 md:w-48 md:h-48 shrink-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
-                 <img src={founderImg} alt="Varshini CB" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
-              </div>
-              <div className="text-center md:text-left flex flex-col justify-center">
-                <div className="text-2xl md:text-4xl text-white font-black tracking-tight uppercase italic">Varshini CB</div>
-                <div className="text-cyan-400 font-bold text-base md:text-lg mt-1 uppercase tracking-widest">CEO & Founder, VidyuthLabs</div>
-                
-                <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-4 uppercase text-[10px] tracking-widest font-bold">
-                  <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Hardware Design</span>
-                  <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Embedded Systems</span>
-                  <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Materials Science</span>
+          <div className="flex flex-col items-center md:items-start gap-8 mt-6 md:mt-12 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+              <div className="flex flex-col items-center md:items-start gap-4 bg-white/5 p-6 rounded-2xl border border-white/10">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
+                  <div className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
+                    <img src={founderImg} alt="Varshini CB" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
+                  </div>
+                  <div className="text-center md:text-left flex flex-col justify-center">
+                    <div className="text-xl md:text-2xl text-white font-black tracking-tight uppercase italic">Varshini CB</div>
+                    <div className="text-cyan-400 font-bold text-sm md:text-base mt-1 uppercase tracking-widest">CEO & Founder, VidyuthLabs</div>
+                    <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3 uppercase text-[10px] tracking-widest font-bold">
+                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Hardware Design</span>
+                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Embedded Systems</span>
+                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Materials Science</span>
+                    </div>
+                    <a href="https://www.linkedin.com/in/varshini-cb-821176360/" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center md:justify-start gap-2 mt-4 px-4 py-2 bg-[#0077b5] text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-[#005582] transition-colors pointer-events-auto w-fit mx-auto md:mx-0 shadow-lg shadow-[#0077b5]/20">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                      LinkedIn
+                    </a>
+                  </div>
                 </div>
-
-                <a href="https://www.linkedin.com/in/varshini-cb-821176360/" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center md:justify-start gap-2 mt-6 px-6 py-3 bg-[#0077b5] text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-[#005582] transition-colors pointer-events-auto w-fit mx-auto md:mx-0 shadow-lg shadow-[#0077b5]/20">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  Connect on LinkedIn
-                </a>
+                <div className="text-left w-full border-t border-white/10 pt-4 mt-2">
+                  <p className="text-gray-400 text-xs leading-relaxed font-medium">
+                    Designing space-grade subsystems for Team Antariksh. Bringing orbital-class hardware engineering to portable bio-detectors.
+                  </p>
+                </div>
               </div>
-            </div>
-            
-            <div className="text-left bg-white/5 p-6 rounded-2xl border border-white/10 mt-4 max-w-xl">
-              <h3 className="text-cyan-400 font-bold mb-2 uppercase tracking-[0.3em] text-[10px]">Background</h3>
-              <p className="text-gray-400 text-sm leading-relaxed font-medium">
-                Designing space-grade subsystems for Team Antariksh. Bringing orbital-class hardware engineering to portable bio-detectors.
-              </p>
+
+              <div className="flex flex-col items-center md:items-start gap-4 bg-white/5 p-6 rounded-2xl border border-white/10">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
+                  <div className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
+                    <img src={manjunathaImg} alt="Dr. Manjunatha C" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
+                  </div>
+                  <div className="text-center md:text-left flex flex-col justify-center">
+                    <div className="text-xl md:text-2xl text-white font-black tracking-tight uppercase italic">Dr. Manjunatha C</div>
+                    <div className="text-cyan-400 font-bold text-sm md:text-base mt-1 uppercase tracking-widest">Chief Scientific Advisor</div>
+                    <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3 uppercase text-[10px] tracking-widest font-bold">
+                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">M.Sc., Ph.D</span>
+                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Associate Professor</span>
+                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Inorganic Nanomaterials</span>
+                    </div>
+                    <a href="mailto:manjunathac@rvce.edu.in" className="inline-flex items-center justify-center md:justify-start gap-2 mt-4 px-4 py-2 bg-gray-700 text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-gray-600 transition-colors pointer-events-auto w-fit mx-auto md:mx-0 shadow-lg">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                      Contact
+                    </a>
+                  </div>
+                </div>
+                <div className="text-left w-full border-t border-white/10 pt-4 mt-2">
+                  <p className="text-gray-400 text-xs leading-relaxed font-medium">
+                    Associate Professor at RVCE, Department of Chemistry. 16+ years of teaching and 13+ years of research experience in inorganic nanomaterials.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}

@@ -3,7 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment, ContactShadows, Text, Line, Float, Stars, Grid } from '@react-three/drei';
 import * as THREE from 'three';
 import { AnalyteX } from './AnalyteX';
-import { VidyutX } from './VidyutX';
+import { NanoX } from './NanoX';
 import { useGameStore } from '../store';
 
 function MobilePhone({ progress }: { progress: number }) {
@@ -134,7 +134,7 @@ function MarketGapVisual({ progress }: { progress: number }) {
         <Text position={[0, 0, 1.51]} fontSize={0.2} color="gray">5 KG / ₹8L+</Text>
       </Float>
       
-      {/* Sleek VidyutX */}
+      {/* Sleek NanoX */}
       <Float speed={3} rotationIntensity={0.5} floatIntensity={0.8} position={[2, -1, 0]}>
         <mesh castShadow>
           <boxGeometry args={[1, 1.5, 0.2]} />
@@ -653,7 +653,7 @@ function Scene() {
       </group>
       
       <group ref={vidyutRef}>
-        <VidyutX isFloating={false} />
+        <NanoX isFloating={false} />
       </group>
 
       <LiquidDrop progress={totalScrollProgress} />

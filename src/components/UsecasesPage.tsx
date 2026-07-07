@@ -34,7 +34,7 @@ const USECASES = [
     icon: <Leaf className="w-8 h-8 text-green-500" />,
     title: "Precision Farming",
     subtitle: "Soil Nutrient Scan",
-    description: "Detecting N-P-K levels and soil contaminants directly in the field. Empowers farmers to reduce fertilizer waste and maximize crop yield using low-cost VidyutX sensors.",
+    description: "Detecting N-P-K levels and soil contaminants directly in the field. Empowers farmers to reduce fertilizer waste and maximize crop yield using low-cost NanoX sensors.",
     value: "Smart Agriculture"
   },
   {
