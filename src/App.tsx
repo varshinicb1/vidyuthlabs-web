@@ -182,58 +182,42 @@ function SectionContent({ section, index, onWaitlistClick, onFutureClick }: Sect
         )}
         
         {section.id === 'vision' && (
-          <div className="flex flex-col items-center md:items-start gap-8 mt-6 md:mt-12 w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-              <div className="flex flex-col items-center md:items-start gap-4 bg-white/5 p-6 rounded-2xl border border-white/10">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
-                  <div className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
-                    <img src={founderImg} alt="Varshini CB" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
-                  </div>
-                  <div className="text-center md:text-left flex flex-col justify-center">
-                    <div className="text-xl md:text-2xl text-white font-black tracking-tight uppercase italic">Varshini CB</div>
-                    <div className="text-cyan-400 font-bold text-sm md:text-base mt-1 uppercase tracking-widest">CEO & Founder, VidyuthLabs</div>
-                    <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3 uppercase text-[10px] tracking-widest font-bold">
-                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Hardware Design</span>
-                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Embedded Systems</span>
-                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Materials Science</span>
-                    </div>
-                    <a href="https://www.linkedin.com/in/varshini-cb-821176360/" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center md:justify-start gap-2 mt-4 px-4 py-2 bg-[#0077b5] text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-[#005582] transition-colors pointer-events-auto w-fit mx-auto md:mx-0 shadow-lg shadow-[#0077b5]/20">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                      LinkedIn
-                    </a>
+          <div className="flex flex-col items-center gap-4 mt-4 w-full">
+            <div className="flex flex-col gap-4 w-full">
+              <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 overflow-hidden shadow-xl">
+                  <img src={founderImg} alt="Varshini CB" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
+                </div>
+                <div className="text-left flex-1 min-w-0">
+                  <div className="text-base md:text-xl text-white font-black tracking-tight uppercase italic truncate">Varshini CB</div>
+                  <div className="text-cyan-400 font-bold text-xs md:text-sm uppercase tracking-widest">CEO & Founder</div>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-[8px] text-gray-400 font-bold">Hardware Design</span>
+                    <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-[8px] text-gray-400 font-bold">Embedded Systems</span>
+                    <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-[8px] text-gray-400 font-bold">Materials Science</span>
                   </div>
                 </div>
-                <div className="text-left w-full border-t border-white/10 pt-4 mt-2">
-                  <p className="text-gray-400 text-xs leading-relaxed font-medium">
-                    Designing space-grade subsystems for Team Antariksh. Bringing orbital-class hardware engineering to portable bio-detectors.
-                  </p>
-                </div>
+                <a href="https://www.linkedin.com/in/varshini-cb-821176360/" target="_blank" rel="noreferrer" className="shrink-0 p-2 bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors pointer-events-auto">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
               </div>
 
-              <div className="flex flex-col items-center md:items-start gap-4 bg-white/5 p-6 rounded-2xl border border-white/10">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
-                  <div className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
-                    <img src={manjunathaImg} alt="Dr. Manjunatha C" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
-                  </div>
-                  <div className="text-center md:text-left flex flex-col justify-center">
-                    <div className="text-xl md:text-2xl text-white font-black tracking-tight uppercase italic">Dr. Manjunatha C</div>
-                    <div className="text-cyan-400 font-bold text-sm md:text-base mt-1 uppercase tracking-widest">Chief Scientific Advisor</div>
-                    <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3 uppercase text-[10px] tracking-widest font-bold">
-                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">M.Sc., Ph.D</span>
-                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Associate Professor</span>
-                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-gray-400">Inorganic Nanomaterials</span>
-                    </div>
-                    <a href="https://www.linkedin.com/in/manjunatha-channegowda-phd-21645a3a/" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center md:justify-start gap-2 mt-4 px-4 py-2 bg-[#0077b5] text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-[#005582] transition-colors pointer-events-auto w-fit mx-auto md:mx-0 shadow-lg shadow-[#0077b5]/20">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                      LinkedIn
-                    </a>
+              <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 overflow-hidden shadow-xl">
+                  <img src={manjunathaImg} alt="Dr. Manjunatha C" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
+                </div>
+                <div className="text-left flex-1 min-w-0">
+                  <div className="text-base md:text-xl text-white font-black tracking-tight uppercase italic truncate">Dr. Manjunatha C</div>
+                  <div className="text-cyan-400 font-bold text-xs md:text-sm uppercase tracking-widest">Chief Scientific Advisor</div>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-[8px] text-gray-400 font-bold">M.Sc., Ph.D</span>
+                    <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-[8px] text-gray-400 font-bold">Associate Professor</span>
+                    <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-[8px] text-gray-400 font-bold">Inorganic Nanomaterials</span>
                   </div>
                 </div>
-                <div className="text-left w-full border-t border-white/10 pt-4 mt-2">
-                  <p className="text-gray-400 text-xs leading-relaxed font-medium">
-                    Associate Professor at RVCE, Department of Chemistry. 16+ years of teaching and 13+ years of research experience in inorganic nanomaterials.
-                  </p>
-                </div>
+                <a href="https://www.linkedin.com/in/manjunatha-channegowda-phd-21645a3a/" target="_blank" rel="noreferrer" className="shrink-0 p-2 bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors pointer-events-auto">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
               </div>
             </div>
           </div>
