@@ -164,7 +164,7 @@ function SectionContent({ section, index, onWaitlistClick, onFutureClick }: Sect
         className="max-w-[95vw] sm:max-w-lg md:max-w-xl lg:max-w-3xl lg:mx-0 w-full pointer-events-auto bg-black/60 lg:bg-transparent p-6 md:p-8 lg:p-0 rounded-3xl backdrop-blur-xl lg:backdrop-blur-none border border-white/10 lg:border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.5)] lg:shadow-none mt-[40dvh] md:mt-0"
       >
         <motion.h2 className="text-[10px] md:text-xs lg:text-sm uppercase tracking-[0.4em] text-cyan-400 mb-2 md:mb-4 font-black drop-shadow-md">
-          {section.id === 'vision' ? 'Meet the CEO' : section.title}
+          {section.id === 'vision' ? 'Meet the Team' : section.title}
         </motion.h2>
         <motion.h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter text-white mb-3 sm:mb-4 md:mb-6 leading-none drop-shadow-2xl uppercase">
           {section.id === 'hero' ? section.title : section.subtitle}
