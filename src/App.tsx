@@ -213,7 +213,7 @@ function SectionContent({ section, index, onWaitlistClick, onFutureClick }: Sect
                   <div className="text-2xl sm:text-3xl text-white font-black tracking-tight uppercase italic">Dr. Manjunatha C</div>
                   <div className="text-cyan-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">Chief Scientific Advisor</div>
                   <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-3 max-w-md">
-                    Associate Professor at RVCE, Department of Chemistry. 16+ years of teaching and 13+ years of research experience in inorganic nanomaterials.
+                    Associate Professor at RVCE, Department of Chemistry. 23 Years of Teaching and 18 Years of Research experience in inorganic nanomaterials.
                   </p>
                   <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-4">
                     <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-gray-400 font-bold uppercase tracking-widest">M.Sc., Ph.D</span>
