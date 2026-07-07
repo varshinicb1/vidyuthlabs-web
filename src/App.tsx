@@ -25,7 +25,7 @@ const SECTIONS: { id: Section; title: string; subtitle: string; content: string 
   { id: 'why-us', title: 'Why Us', subtitle: 'The VidyuthLabs Advantage.', content: 'Pocket-sized, ₹25,000, field-ready, 10nA resolution.' },
   { id: 'target-market', title: 'Target Market', subtitle: 'Who We Serve.', content: 'Researchers, clinics, environmental agencies, and educational institutions.' },
   { id: 'future', title: 'Future Pipeline', subtitle: 'Printed Organics.', content: 'Developing the future of molecular sensing via printed electronics on flexible substrates and multi-walled carbon nanotube arrays for extreme diagnostic sensitivity.' },
-  { id: 'vision', title: 'The Founder', subtitle: 'Varshini CB', content: 'CEO & Founder. 6th Sem EEE at RVCE. Chief Subsystem Engineer at Team Antariksh.' }
+  { id: 'vision', title: 'The Team', subtitle: 'Leadership & Advisory', content: 'The people driving VidyuthLabs forward.' }
 ];
 
 function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
