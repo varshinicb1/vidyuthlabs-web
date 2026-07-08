@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e11"/>
+      <stop offset="1" stop-color="#05080a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd873"/>
+      <stop offset="1" stop-color="#e0a02a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.8" cy="0.3" r="0.7">
+      <stop offset="0" stop-color="#00e5ff" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#00e5ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- brand -->
+  <text x="80" y="120" fill="#ffffff" font-size="34" font-weight="800" letter-spacing="1">VidyuthLabs</text>
+  <rect x="80" y="140" width="54" height="4" rx="2" fill="#00e5ff"/>
+
+  <!-- headline -->
+  <text x="80" y="260" fill="#ffffff" font-size="76" font-weight="800">Lab-grade</text>
+  <text x="80" y="345" fill="#ffffff" font-size="76" font-weight="800">electrochemistry,</text>
+  <text x="80" y="430" fill="#00e5ff" font-size="76" font-weight="800">in your hand.</text>
+
+  <text x="80" y="500" fill="#9aa5ab" font-size="30" font-weight="500">Portable potentiostat • Nanomaterial screen-printed electrodes</text>
+  <text x="80" y="542" fill="#9aa5ab" font-size="30" font-weight="500">Heavy metals • Formalin • Soil • Water • Research • Industry</text>
+
+  <!-- SPE chip illustration -->
+  <g transform="translate(880 190) rotate(-14)">
+    <rect x="0" y="0" width="220" height="330" rx="14" fill="#0d1114" stroke="#1c2329" stroke-width="2"/>
+    <circle cx="110" cy="95" r="52" fill="url(#gold)"/>
+    <circle cx="110" cy="95" r="52" fill="none" stroke="#3a2e10" stroke-width="2"/>
+    <rect x="46" y="205" width="34" height="95" rx="6" fill="url(#gold)"/>
+    <rect x="93" y="205" width="34" height="95" rx="6" fill="url(#gold)"/>
+    <rect x="140" y="205" width="34" height="95" rx="6" fill="url(#gold)"/>
+    <text x="110" y="180" fill="#f5b740" font-size="20" font-weight="700" text-anchor="middle">NanoX SPE</text>
+  </g>
+</svg>

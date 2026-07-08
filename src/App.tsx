@@ -8,23 +8,21 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'mot
 import { Game } from './components/Game';
 import { useGameStore, Section } from './store';
 import { UsecasesPage } from './components/UsecasesPage';
-import { FuturePage } from './components/FuturePage';
+import { whatsappLink } from './config';
 import founderImg from './assets/varshini.png';
 import manjunathaImg from './assets/manjunatha.jpg';
 
 const SECTIONS: { id: Section; title: string; subtitle: string; content: string }[] = [
-  { id: 'hero', title: 'AnalyteX', subtitle: 'The Future of Physical AI.', content: 'Lab-grade electrochemistry on your palm. Precision meets portability.' },
-  { id: 'sensor', title: 'NanoX Sensor', subtitle: 'Precision Engineering.', content: 'High-sensitivity PCB-based detection with CE, WE, and RE contacts.' },
-  { id: 'insertion', title: 'Seamless Integration', subtitle: 'Plug and Play.', content: 'Insert the NanoX sensor into the AnalyteX device to begin.' },
-  { id: 'sample', title: 'Single Drop Diagnostics', subtitle: 'Comprehensive Analysis.', content: 'One drop unlocks everything: Cyclic Voltammetry (CV) for redox behavior, EIS for binding kinetics, and DPV for ultra-trace quantification.' },
-  { id: 'analysis', title: 'Live Scanning', subtitle: 'Real-time CV & EIS.', content: 'Precise instrument readings generated instantly on the device.' },
-  { id: 'mobile', title: 'Mobile Sync', subtitle: 'Cloud Connected.', content: 'Seamlessly communicates with the VidyuthLabs mobile app.' },
-  { id: 'results', title: 'Instant Results', subtitle: 'Biomarker Detected.', content: 'Troponin I: 0.04 ng/mL. Early myocardial infarction detection with lab-grade precision at the point of care.' },
-  { id: 'applications', title: 'Applications', subtitle: 'Biomedical & Labs.', content: 'Multiplexed biomarker detection: Troponin, Cortisol, Lactate, and heavy metals using CV, EIS, and DPV.' },
-  { id: 'competitors', title: 'Competitors', subtitle: 'The Market Gap.', content: 'Traditional potentiostats are 5kg+ and cost ₹5L+. They are lab-bound.' },
-  { id: 'why-us', title: 'Why Us', subtitle: 'The VidyuthLabs Advantage.', content: 'Pocket-sized, ₹25,000, field-ready, 10nA resolution.' },
-  { id: 'target-market', title: 'Target Market', subtitle: 'Who We Serve.', content: 'Researchers, clinics, environmental agencies, and educational institutions.' },
-  { id: 'future', title: 'Future Pipeline', subtitle: 'Printed Organics.', content: 'Developing the future of molecular sensing via printed electronics on flexible substrates and multi-walled carbon nanotube arrays for extreme diagnostic sensitivity.' },
+  { id: 'hero', title: 'AnalyteX', subtitle: 'The Lab In Your Hand.', content: 'A portable potentiostat for lab-grade electrochemistry, anywhere. One device, an interchangeable sensor for every test.' },
+  { id: 'sensor', title: 'NanoX Sensor', subtitle: 'Precision Engineering.', content: 'A gold ENIG screen-printed electrode with CE, WE, and RE contacts — coated with different nanomaterials for each application.' },
+  { id: 'insertion', title: 'Seamless Integration', subtitle: 'Plug and Play.', content: 'Click the NanoX sensor into the AnalyteX device to begin. No wiring, no setup.' },
+  { id: 'sample', title: 'Single Drop', subtitle: 'One Drop Is Enough.', content: 'A single drop of water, soil extract or food sample unlocks it all: Cyclic Voltammetry (CV), Impedance (EIS), and ultra-trace DPV.' },
+  { id: 'analysis', title: 'Live Scanning', subtitle: 'Real-time CV & EIS.', content: 'Precise, lab-grade measurements generated instantly on the 2.8-inch touchscreen.' },
+  { id: 'mobile', title: 'Mobile Sync', subtitle: 'AI Insights.', content: 'Every scan streams to the VidyuthLabs app over Wi-Fi and Bluetooth, where analytics and AI turn raw signals into clear answers.' },
+  { id: 'results', title: 'Instant Results', subtitle: 'Contaminant Detected.', content: 'Lead (Pb): 12 ppb — above the safe limit. Trace-level detection with lab-grade precision, right in the field.' },
+  { id: 'applications', title: 'Applications', subtitle: 'One Device, Every Field.', content: 'Heavy metals in water and food, formalin in seafood, soil and agriculture, research and industry — just change the sensor.' },
+  { id: 'why-us', title: 'Why Us', subtitle: 'The Accessible Standard.', content: 'Benchtop instruments are heavy, lab-bound and out of reach. AnalyteX is pocket-sized, field-ready, and the most accessible way to run electrochemistry.' },
+  { id: 'target-market', title: 'Target Market', subtitle: 'Who We Serve.', content: 'Water utilities, food and seafood exporters, agriculture, environmental agencies, industry, universities and research labs — worldwide.' },
   { id: 'vision', title: 'The Team', subtitle: 'Leadership & Advisory', content: 'The people driving VidyuthLabs forward.' }
 ];
 
@@ -48,7 +46,7 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
       const finalUrl = `${GOOGLE_SCRIPT_URL}?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&message=${encodeURIComponent(message)}`;
       await fetch(finalUrl, { method: 'GET', mode: 'no-cors' });
       setStatus('success');
-      setStatusMessage('Welcome to the future. You are on the waitlist.');
+      setStatusMessage('Pre-order received. We will email you to confirm your kit.');
       setTimeout(() => { onClose(); setStatus('idle'); setName(''); setEmail(''); setPhone(''); setMessage(''); }, 3000);
     } catch (err) {
       setStatus('error');
@@ -57,7 +55,7 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <motion.div 
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -65,9 +63,9 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
         onClick={e => e.stopPropagation()}
         role="dialog"
       >
-        <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tighter italic">VidyuthLabs Waitlist</h2>
+        <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tighter italic">Reserve Your Kit</h2>
         <p className="text-gray-400 mb-8 text-sm leading-relaxed border-l-2 border-cyan-400 pl-4 font-medium uppercase tracking-widest">
-          Join the priority queue for India's first portable Physical AI diagnostic node.
+          Pre-order sensor kits now · AnalyteX device coming soon. No payment today — we confirm by email.
         </p>
 
         {status === 'success' ? (
@@ -121,7 +119,7 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               disabled={status === 'loading'}
               className="bg-cyan-400 hover:bg-cyan-300 text-black font-bold py-3 rounded-xl transition-colors mt-2 disabled:opacity-50"
             >
-              {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
+              {status === 'loading' ? 'Reserving...' : 'Reserve My Kit'}
             </button>
             <button 
               type="button"
@@ -142,10 +140,9 @@ interface SectionContentProps {
   section: typeof SECTIONS[0];
   index: number;
   onWaitlistClick: () => void;
-  onFutureClick: () => void;
 }
 
-function SectionContent({ section, index, onWaitlistClick, onFutureClick }: SectionContentProps) {
+function SectionContent({ section, index, onWaitlistClick }: SectionContentProps) {
   const { scrollYProgress } = useScroll();
   
   const start = index / SECTIONS.length;
@@ -176,7 +173,7 @@ function SectionContent({ section, index, onWaitlistClick, onFutureClick }: Sect
         {section.id === 'hero' && (
            <div className="mt-8 flex justify-center lg:justify-start">
              <button onClick={onWaitlistClick} className="pointer-events-auto bg-cyan-400 hover:bg-cyan-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,229,255,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
-               Join the Waitlist
+               Pre-order Now
              </button>
            </div>
         )}
@@ -200,9 +197,14 @@ function SectionContent({ section, index, onWaitlistClick, onFutureClick }: Sect
                     <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-gray-400 font-bold uppercase tracking-widest">Materials Science</span>
                   </div>
                 </div>
-                <a href="https://www.linkedin.com/in/varshini-cb-821176360/" target="_blank" rel="noreferrer" className="shrink-0 w-11 h-11 flex items-center justify-center bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors pointer-events-auto shadow-lg shadow-[#0077b5]/20">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
+                <div className="flex sm:flex-col gap-2 shrink-0">
+                  <a href="https://www.linkedin.com/in/varshini-cb-821176360/" target="_blank" rel="noreferrer" aria-label="Varshini CB on LinkedIn" className="w-11 h-11 flex items-center justify-center bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors pointer-events-auto shadow-lg shadow-[#0077b5]/20">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                  <a href={whatsappLink("Hi Varshini, I'm interested in VidyuthLabs and would like to talk.")} target="_blank" rel="noreferrer" aria-label="Message Varshini on WhatsApp" className="w-11 h-11 flex items-center justify-center bg-[#25D366] text-white rounded-full hover:brightness-110 transition pointer-events-auto shadow-lg shadow-[#25D366]/20">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.892c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 005.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
+                  </a>
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 pb-6">
@@ -229,25 +231,12 @@ function SectionContent({ section, index, onWaitlistClick, onFutureClick }: Sect
           </div>
         )}
 
-        {section.id === 'competitors' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-            <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-              <div className="text-red-400 font-black mb-1 text-sm uppercase italic">Traditional</div>
-              <div className="text-[10px] text-gray-500 font-bold tracking-widest uppercase">₹8,00,000+ | 5kg | Lab Only</div>
-            </div>
-            <div className="bg-cyan-400/10 p-4 rounded-xl border border-cyan-400/20">
-              <div className="text-cyan-400 font-black mb-1 text-sm uppercase italic">AnalyteX</div>
-              <div className="text-[10px] text-gray-500 font-bold tracking-widest uppercase">₹25,000 | 150g | Field Ready</div>
-            </div>
+        {section.id === 'applications' && (
+          <div className="mt-8 flex justify-center lg:justify-start">
+            <button onClick={onWaitlistClick} className="pointer-events-auto bg-cyan-400 hover:bg-cyan-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,229,255,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
+              Pre-order Sensors
+            </button>
           </div>
-        )}
-
-        {section.id === 'future' && (
-           <div className="mt-8 flex justify-center lg:justify-start">
-             <button onClick={onFutureClick} className="pointer-events-auto bg-transparent border border-white/20 text-white hover:bg-white hover:text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all uppercase tracking-widest hover:scale-105 active:scale-95">
-               Explore R&D
-             </button>
-           </div>
         )}
       </motion.div>
       
@@ -271,7 +260,6 @@ export default function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [showUsecases, setShowUsecases] = useState(false);
-  const [showFuture, setShowFuture] = useState(false);
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
   const activeSection = useGameStore(state => state.activeSection);
@@ -337,13 +325,13 @@ export default function App() {
       <main className="relative z-10 lg:w-1/2 lg:ml-[50%]">
         <div className="flex flex-col">
           {SECTIONS.map((section, i) => (
-            <SectionContent key={section.id} section={section} index={i} onWaitlistClick={() => setIsWaitlistOpen(true)} onFutureClick={() => setShowFuture(true)} />
+            <SectionContent key={section.id} section={section} index={i} onWaitlistClick={() => setIsWaitlistOpen(true)} />
           ))}
 
           <motion.div className="min-h-[60vh] flex flex-col items-start justify-center p-8 md:p-16 border-t border-white/5" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-             <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-10 italic">Go Beyond <br/> The Lab.</h2>
+             <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-10 italic">Explore The <br/> Sensor Catalogue.</h2>
              <button onClick={() => setShowUsecases(true)} className="group flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-black uppercase tracking-[0.2em] hover:bg-cyan-400 transition-all cursor-pointer">
-                Explore Usecases
+                Browse Sensors &amp; Pre-order
                 <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-2 transition-transform">➔</div>
              </button>
           </motion.div>
@@ -375,8 +363,7 @@ export default function App() {
       </div>
 
       <AnimatePresence>
-        {showUsecases && <UsecasesPage onBack={() => setShowUsecases(false)} />}
-        {showFuture && <FuturePage onBack={() => setShowFuture(false)} />}
+        {showUsecases && <UsecasesPage onBack={() => setShowUsecases(false)} onPreorder={() => setIsWaitlistOpen(true)} />}
       </AnimatePresence>
     </div>
   );

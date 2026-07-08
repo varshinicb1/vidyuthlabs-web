@@ -40,24 +40,24 @@ export function AnalyteX() {
   const dangerColor = useMemo(() => new THREE.Color("#ff3366"), []);
   const whiteColor = useMemo(() => new THREE.Color("#ffffff"), []);
 
-  // Determine screen state
+  // Determine screen state — mapped to the 11-section scroll timeline
   const screenState = useMemo(() => {
-    if (totalScrollProgress < 0.15) return 'READY';
-    if (totalScrollProgress < 0.23) return 'INSERT SENSOR';
-    if (totalScrollProgress < 0.253) return 'BLOOD DETECTED';
-    if (totalScrollProgress < 0.276) return 'WATER DETECTED';
-    if (totalScrollProgress < 0.3) return 'SERUM DETECTED';
-    if (totalScrollProgress < 0.38) return 'SCANNING';
-    if (totalScrollProgress < 0.46) return 'SYNCING';
+    if (totalScrollProgress < 0.182) return 'READY';
+    if (totalScrollProgress < 0.273) return 'INSERT SENSOR';
+    if (totalScrollProgress < 0.303) return 'WATER SAMPLE';
+    if (totalScrollProgress < 0.333) return 'SOIL SAMPLE';
+    if (totalScrollProgress < 0.364) return 'FOOD SAMPLE';
+    if (totalScrollProgress < 0.455) return 'SCANNING';
+    if (totalScrollProgress < 0.545) return 'SYNCING';
     return 'RESULTS';
   }, [totalScrollProgress]);
 
-  const isSampleDetected = ['BLOOD DETECTED', 'WATER DETECTED', 'SERUM DETECTED'].includes(screenState);
-  
+  const isSampleDetected = ['WATER SAMPLE', 'SOIL SAMPLE', 'FOOD SAMPLE'].includes(screenState);
+
   const getSampleColor = () => {
-    if (screenState === 'BLOOD DETECTED') return '#ff3366';
-    if (screenState === 'WATER DETECTED') return '#00ccff';
-    if (screenState === 'SERUM DETECTED') return '#ffcc00';
+    if (screenState === 'WATER SAMPLE') return '#2aa9ff';
+    if (screenState === 'SOIL SAMPLE') return '#9bd14b';
+    if (screenState === 'FOOD SAMPLE') return '#ffb020';
     return '#ffffff';
   };
 
@@ -161,7 +161,7 @@ export function AnalyteX() {
     }
 
     if (screenState === 'SCANNING') {
-      const scanProgress = Math.min((totalScrollProgress - 0.3) / 0.08, 1);
+      const scanProgress = Math.min((totalScrollProgress - 0.364) / 0.07, 1);
       const drawCount = Math.floor(scanProgress * cvPoints.length);
       if (cvGeometryRef.current) cvGeometryRef.current.setDrawRange(0, drawCount);
       if (plotterHeadRef.current) {
@@ -180,7 +180,7 @@ export function AnalyteX() {
 
     const isResults = screenState === 'RESULTS';
     if (isResults) {
-      const resultProgress = Math.min((totalScrollProgress - 0.46) / 0.04, 1);
+      const resultProgress = Math.min((totalScrollProgress - 0.545) / 0.04, 1);
       if (resultsScrollGroupRef.current) {
         const easeOut = 1 - Math.pow(1 - resultProgress, 4);
         resultsScrollGroupRef.current.position.y = THREE.MathUtils.lerp(-1.5, 0.4, easeOut);
@@ -285,7 +285,7 @@ export function AnalyteX() {
             )}
             {screenState === 'INSERT SENSOR' && (
               <group>
-                <Text position={[0, 0.15, 0]} fontSize={0.14} color="yellow" letterSpacing={0.05}>WAITING FOR VIDYUTX...</Text>
+                <Text position={[0, 0.15, 0]} fontSize={0.14} color="yellow" letterSpacing={0.05}>WAITING FOR NANOX...</Text>
                 <Text position={[0, -0.1, 0]} fontSize={0.09} color="gray">Insert into bottom slot</Text>
                 <group ref={arrowRef} position={[0, -0.3, 0]}>
                   <Text position={[0, 0.05, 0]} fontSize={0.15} color="yellow" rotation={[0, 0, -Math.PI/2]} fillOpacity={0.5}>➔</Text>
@@ -293,21 +293,21 @@ export function AnalyteX() {
                 </group>
               </group>
             )}
-            {screenState === 'BLOOD DETECTED' && (
+            {screenState === 'WATER SAMPLE' && (
               <group>
-                <Text position={[0, 0.15, 0]} fontSize={0.16} color="#ff3366" letterSpacing={0.05}>BLOOD DETECTED</Text>
-                <Text position={[0, -0.1, 0]} fontSize={0.09} color="gray">Biomarker Analysis Ready</Text>
-              </group>
-            )}
-            {screenState === 'WATER DETECTED' && (
-              <group>
-                <Text position={[0, 0.15, 0]} fontSize={0.16} color="#00ccff" letterSpacing={0.05}>WATER DETECTED</Text>
+                <Text position={[0, 0.15, 0]} fontSize={0.16} color="#2aa9ff" letterSpacing={0.05}>WATER SAMPLE</Text>
                 <Text position={[0, -0.1, 0]} fontSize={0.09} color="gray">Heavy Metal Scan Ready</Text>
               </group>
             )}
-            {screenState === 'SERUM DETECTED' && (
+            {screenState === 'SOIL SAMPLE' && (
               <group>
-                <Text position={[0, 0.15, 0]} fontSize={0.16} color="#ffcc00" letterSpacing={0.05}>SERUM DETECTED</Text>
+                <Text position={[0, 0.15, 0]} fontSize={0.16} color="#9bd14b" letterSpacing={0.05}>SOIL SAMPLE</Text>
+                <Text position={[0, -0.1, 0]} fontSize={0.09} color="gray">Contaminant Scan Ready</Text>
+              </group>
+            )}
+            {screenState === 'FOOD SAMPLE' && (
+              <group>
+                <Text position={[0, 0.15, 0]} fontSize={0.16} color="#ffb020" letterSpacing={0.05}>FOOD SAMPLE</Text>
                 <Text position={[0, -0.1, 0]} fontSize={0.09} color="gray">Initiating Scan Sequence</Text>
               </group>
             )}
@@ -365,18 +365,18 @@ export function AnalyteX() {
             )}
             {screenState === 'RESULTS' && (
               <group>
-                <Text ref={biomarkerTextRef} position={[0, 0.75, 0]} fontSize={0.11} color="gray" letterSpacing={0.15}>BIOMARKER DETECTED</Text>
+                <Text ref={biomarkerTextRef} position={[0, 0.75, 0]} fontSize={0.11} color="gray" letterSpacing={0.15}>CONTAMINANT DETECTED</Text>
                 <group position={[0, 0.1, 0]}>
                   <group ref={resultsScrollGroupRef} position={[0, -1.5, 0]}>
-                    <Text position={[0, 1.6, 0]} fontSize={0.12} color="#444">GLUCOSE</Text>
-                    <Text position={[0, 1.2, 0]} fontSize={0.12} color="#444">LACTATE</Text>
-                    <Text position={[0, 0.8, 0]} fontSize={0.12} color="#444">CORTISOL</Text>
-                    <Text position={[0, 0.4, 0]} fontSize={0.12} color="#444">HEAVY METALS</Text>
+                    <Text position={[0, 1.6, 0]} fontSize={0.12} color="#444">ARSENIC</Text>
+                    <Text position={[0, 1.2, 0]} fontSize={0.12} color="#444">CADMIUM</Text>
+                    <Text position={[0, 0.8, 0]} fontSize={0.12} color="#444">MERCURY</Text>
+                    <Text position={[0, 0.4, 0]} fontSize={0.12} color="#444">COPPER</Text>
                     <group position={[0, 0, 0]}>
-                      <Text ref={troponinTextRef} position={[0, 0, 0]} fontSize={0.22} color="#00ffcc" letterSpacing={0.05}>TROPONIN I</Text>
+                      <Text ref={troponinTextRef} position={[0, 0, 0]} fontSize={0.22} color="#00ffcc" letterSpacing={0.05}>LEAD (Pb)</Text>
                       <mesh ref={resultBoxRef} position={[0, -0.5, 0]}><planeGeometry args={[1.5, 0.45]} /><meshBasicMaterial color="#00ffcc" transparent opacity={0.15} /></mesh>
-                      <Text ref={concentrationTextRef} position={[0, -0.5, 0]} fontSize={0.22} color="white" letterSpacing={0.05}>0.04 ng/mL</Text>
-                      <Text ref={warningRef} position={[0, -1.0, 0]} fontSize={0.08} color="#ff3366" letterSpacing={0.05}>ELEVATED - SEEK MEDICAL ATTENTION</Text>
+                      <Text ref={concentrationTextRef} position={[0, -0.5, 0]} fontSize={0.22} color="white" letterSpacing={0.05}>12 ppb</Text>
+                      <Text ref={warningRef} position={[0, -1.0, 0]} fontSize={0.08} color="#ff3366" letterSpacing={0.05}>EXCEEDS SAFE LIMIT (10 ppb)</Text>
                     </group>
                   </group>
                 </group>
@@ -400,7 +400,7 @@ export function AnalyteX() {
           </group>
           <group position={[-1.5, 0, 0.5]}>
             <Line points={[[0, 0, 0], [0.5, 0.2, -0.2]]} color="#00ffcc" lineWidth={1} transparent opacity={0.5} />
-            <Text position={[-0.1, 0, 0]} fontSize={0.08} color="#00ffcc" anchorX="right">1.8" HIGH-RES LCD</Text>
+            <Text position={[-0.1, 0, 0]} fontSize={0.08} color="#00ffcc" anchorX="right">2.8" TOUCHSCREEN</Text>
           </group>
           <group position={[1.5, -1.2, 0.5]}>
             <Line points={[[0, 0, 0], [-0.5, 0.2, -0.2]]} color="#00ffcc" lineWidth={1} transparent opacity={0.5} />

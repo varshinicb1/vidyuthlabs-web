@@ -11,12 +11,12 @@ function MobilePhone({ progress }: { progress: number }) {
   
   useFrame(() => {
     if (!ref.current) return;
-    // Visible between 0.38 and 0.53
-    if (progress > 0.35 && progress < 0.5) {
+    // Visible during the "mobile" section band
+    if (progress > 0.45 && progress < 0.55) {
       ref.current.visible = true;
-      // Slide in from right
-      const targetX = progress < 0.38 ? THREE.MathUtils.lerp(6, 2.8, (progress - 0.35) / 0.03) : 
-                      progress > 0.46 ? THREE.MathUtils.lerp(2.8, 6, (progress - 0.46) / 0.04) : 2.8;
+      // Slide in from right, out to the right
+      const targetX = progress < 0.485 ? THREE.MathUtils.lerp(6, 2.8, (progress - 0.455) / 0.03) :
+                      progress > 0.515 ? THREE.MathUtils.lerp(2.8, 6, (progress - 0.515) / 0.03) : 2.8;
       ref.current.position.lerp(new THREE.Vector3(targetX, 0, 2), 0.1);
       ref.current.rotation.y = -Math.PI / 6;
     } else {
@@ -53,25 +53,25 @@ function MobilePhone({ progress }: { progress: number }) {
           <meshBasicMaterial color="#1a1a1a" />
         </mesh>
         <Text position={[-0.8, 1.2, 0.01]} fontSize={0.10} color="gray" anchorX="left">LATEST SCAN</Text>
-        <Text position={[-0.8, 0.95, 0.01]} fontSize={0.16} color="#fff" anchorX="left">Troponin I</Text>
-        <Text position={[-0.8, 0.70, 0.01]} fontSize={0.20} color="#ff3366" anchorX="left">0.04 ng/mL</Text>
-        
+        <Text position={[-0.8, 0.95, 0.01]} fontSize={0.16} color="#fff" anchorX="left">Lead (Pb)</Text>
+        <Text position={[-0.8, 0.70, 0.01]} fontSize={0.20} color="#ff3366" anchorX="left">12 ppb</Text>
+
         {/* Graph Mockup */}
         <Line points={[[-0.8, 0.4, 0.01], [-0.4, 0.4, 0.01], [0, 0.65, 0.01], [0.4, 0.35, 0.01], [0.8, 0.55, 0.01]]} color="#00ffcc" lineWidth={2} />
-        
+
         <mesh position={[0, -0.4, 0]}>
           <planeGeometry args={[1.8, 0.8]} />
           <meshBasicMaterial color="#1a1a1a" />
         </mesh>
-        <Text position={[-0.8, -0.2, 0.01]} fontSize={0.1} color="gray" anchorX="left">PATIENT STATUS</Text>
-        <Text position={[-0.8, -0.5, 0.01]} fontSize={0.12} color="#ff3366" anchorX="left">CRITICAL - ELEVATED LEVELS</Text>
+        <Text position={[-0.8, -0.2, 0.01]} fontSize={0.1} color="gray" anchorX="left">SAMPLE STATUS</Text>
+        <Text position={[-0.8, -0.5, 0.01]} fontSize={0.12} color="#ff3366" anchorX="left">UNSAFE - EXCEEDS LIMIT</Text>
 
         <mesh position={[0, -1.4, 0]}>
           <planeGeometry args={[1.8, 0.8]} />
           <meshBasicMaterial color="#1a1a1a" />
         </mesh>
         <Text position={[-0.8, -1.2, 0.01]} fontSize={0.1} color="gray" anchorX="left">RECOMMENDATION</Text>
-        <Text position={[-0.8, -1.5, 0.01]} fontSize={0.12} color="#fff" anchorX="left">Immediate Cardiology Consult</Text>
+        <Text position={[-0.8, -1.5, 0.01]} fontSize={0.12} color="#fff" anchorX="left">Treat source · retest sample</Text>
       </group>
       </Float>
     </group>
@@ -85,8 +85,8 @@ function ApplicationsVisual({ progress }: { progress: number }) {
       ref.current.rotation.y = state.clock.elapsedTime * 0.5;
     }
   });
-  // Visible between 0.50 and 0.65
-  const isVisible = progress > 0.50 && progress < 0.65;
+  // Visible during the "applications" section band
+  const isVisible = progress > 0.63 && progress < 0.73;
   return (
     <group position={[10, 0, 0]} visible={isVisible} ref={ref}>
       {/* DNA Helix or Abstract Medical structure */}
@@ -114,39 +114,6 @@ function ApplicationsVisual({ progress }: { progress: number }) {
   );
 }
 
-function MarketGapVisual({ progress }: { progress: number }) {
-  const ref = useRef<THREE.Group>(null);
-  useFrame((state) => {
-    if (ref.current) {
-      ref.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
-    }
-  });
-  const isVisible = progress > 0.58 && progress < 0.72;
-  return (
-    <group position={[20, 0, 0]} visible={isVisible} ref={ref}>
-      {/* Big heavy traditional machine */}
-      <Float speed={1} rotationIntensity={0.1} floatIntensity={0.2} position={[-2, -1, 0]}>
-        <mesh castShadow>
-          <boxGeometry args={[3, 4, 3]} />
-          <meshStandardMaterial color="#222" roughness={0.9} metalness={0.1} />
-        </mesh>
-        <Text position={[0, 2.5, 0]} fontSize={0.3} color="#ff3366">TRADITIONAL</Text>
-        <Text position={[0, 0, 1.51]} fontSize={0.2} color="gray">5 KG / ₹8L+</Text>
-      </Float>
-      
-      {/* Sleek NanoX */}
-      <Float speed={3} rotationIntensity={0.5} floatIntensity={0.8} position={[2, -1, 0]}>
-        <mesh castShadow>
-          <boxGeometry args={[1, 1.5, 0.2]} />
-          <meshPhysicalMaterial color="#0a0a0a" roughness={0.1} metalness={0.9} />
-        </mesh>
-        <Text position={[0, 2.5, 0]} fontSize={0.3} color="#00ffcc">ANALYTEX</Text>
-        <Text position={[0, 0, 0.11]} fontSize={0.15} color="#00ffcc">150g / ₹25k</Text>
-      </Float>
-    </group>
-  );
-}
-
 function WhyUsVisual({ progress }: { progress: number }) {
   const ref = useRef<THREE.Group>(null);
   useFrame((state) => {
@@ -155,7 +122,7 @@ function WhyUsVisual({ progress }: { progress: number }) {
       ref.current.rotation.z = state.clock.elapsedTime * 0.2;
     }
   });
-  const isVisible = progress > 0.65 && progress < 0.80;
+  const isVisible = progress > 0.72 && progress < 0.82;
   return (
     <group position={[30, 0, 0]} visible={isVisible}>
       <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
@@ -182,198 +149,6 @@ function WhyUsVisual({ progress }: { progress: number }) {
   );
 }
 
-function SwarmVisualization({ progress }: { progress: number }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const linesRef = useRef<THREE.LineSegments>(null);
-  const nodesRef = useRef<THREE.InstancedMesh>(null);
-
-  const NODE_COUNT = 75;
-  const MAX_DISTANCE = 1.8;
-  const SPHERE_RADIUS = 3;
-
-  // Initialize node data using Fibonacci sphere distribution
-  const nodesData = useMemo(() => {
-    const data = [];
-    const phi = Math.PI * (3 - Math.sqrt(5));
-
-    for (let i = 0; i < NODE_COUNT; i++) {
-      const y = 1 - (i / (NODE_COUNT - 1)) * 2;
-      const radius = Math.sqrt(1 - y * y);
-      const theta = phi * i;
-
-      const x = Math.cos(theta) * radius;
-      const z = Math.sin(theta) * radius;
-
-      data.push({
-        basePosition: new THREE.Vector3(x * SPHERE_RADIUS, y * SPHERE_RADIUS, z * SPHERE_RADIUS),
-        position: new THREE.Vector3(x * SPHERE_RADIUS, y * SPHERE_RADIUS, z * SPHERE_RADIUS),
-        phase: Math.random() * Math.PI * 2,
-        pulseSpeed: 0.2 + Math.random() * 0.8,
-        activity: 0, // For signal propagation
-        connections: [] as number[],
-      });
-    }
-    
-    // Pre-calculate connections for signal routing
-    for (let i = 0; i < NODE_COUNT; i++) {
-      for (let j = i + 1; j < NODE_COUNT; j++) {
-        if (data[i].basePosition.distanceTo(data[j].basePosition) < MAX_DISTANCE) {
-          data[i].connections.push(j);
-          data[j].connections.push(i);
-        }
-      }
-    }
-    
-    return data;
-  }, []);
-
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-  const color = useMemo(() => new THREE.Color(), []);
-  
-  // Arrays for lines
-  const maxLines = NODE_COUNT * 10;
-  const linePositions = useMemo(() => new Float32Array(maxLines * 6), []);
-  const lineColors = useMemo(() => new Float32Array(maxLines * 6), []);
-
-  useFrame((state) => {
-    if (!groupRef.current || !groupRef.current.visible) return;
-
-    // Slow rotation
-    groupRef.current.rotation.y += 0.001;
-    groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
-
-    let lineIndex = 0;
-    let colorIndex = 0;
-
-    // Randomly trigger signals
-    if (Math.random() < 0.05) {
-      const randomNode = Math.floor(Math.random() * NODE_COUNT);
-      nodesData[randomNode].activity = 1.0;
-    }
-
-    // Update nodes
-    for (let i = 0; i < NODE_COUNT; i++) {
-      const data = nodesData[i];
-      
-      // Signal decay and propagation
-      if (data.activity > 0) {
-        data.activity -= 0.02; // Decay
-        
-        // Propagate to neighbors
-        if (data.activity > 0.5 && Math.random() < 0.1) {
-          const neighborIdx = data.connections[Math.floor(Math.random() * data.connections.length)];
-          if (neighborIdx !== undefined && nodesData[neighborIdx].activity < 0.2) {
-            nodesData[neighborIdx].activity = 1.0;
-          }
-        }
-      }
-      if (data.activity < 0) data.activity = 0;
-
-      // Structured breathing + activity pulse
-      const pulse = Math.sin(state.clock.elapsedTime * data.pulseSpeed + data.phase) * 0.05;
-      const activityScale = 1 + data.activity * 0.5;
-      
-      data.position.copy(data.basePosition).multiplyScalar(1 + pulse);
-
-      dummy.position.copy(data.position);
-      dummy.lookAt(0, 0, 0);
-      dummy.scale.setScalar(activityScale);
-      dummy.updateMatrix();
-      
-      if (nodesRef.current) {
-        nodesRef.current.setMatrixAt(i, dummy.matrix);
-        
-        // Color based on activity: Cyan (base) to White/Yellow (active)
-        color.setHSL(0.5 - data.activity * 0.1, 1.0, 0.5 + data.activity * 0.5);
-        nodesRef.current.setColorAt(i, color);
-      }
-
-      // Update connections
-      for (let j = 0; j < data.connections.length; j++) {
-        const neighborIdx = data.connections[j];
-        if (neighborIdx > i) { // Only draw once per pair
-          const neighbor = nodesData[neighborIdx];
-          const dist = data.position.distanceTo(neighbor.position);
-          
-          if (dist < MAX_DISTANCE) {
-            linePositions[lineIndex++] = data.position.x;
-            linePositions[lineIndex++] = data.position.y;
-            linePositions[lineIndex++] = data.position.z;
-            linePositions[lineIndex++] = neighbor.position.x;
-            linePositions[lineIndex++] = neighbor.position.y;
-            linePositions[lineIndex++] = neighbor.position.z;
-            
-            // Line color based on combined activity
-            const combinedActivity = Math.max(data.activity, neighbor.activity);
-            const r = 0.0 + combinedActivity;
-            const g = 1.0;
-            const b = 0.8 + combinedActivity * 0.2;
-            
-            // Alpha/intensity based on distance and activity
-            const intensity = (1 - dist / MAX_DISTANCE) * (0.2 + combinedActivity * 0.8);
-            
-            lineColors[colorIndex++] = r * intensity;
-            lineColors[colorIndex++] = g * intensity;
-            lineColors[colorIndex++] = b * intensity;
-            lineColors[colorIndex++] = r * intensity;
-            lineColors[colorIndex++] = g * intensity;
-            lineColors[colorIndex++] = b * intensity;
-          }
-        }
-      }
-    }
-
-    if (nodesRef.current) {
-      nodesRef.current.instanceMatrix.needsUpdate = true;
-      if (nodesRef.current.instanceColor) {
-        nodesRef.current.instanceColor.needsUpdate = true;
-      }
-    }
-
-    if (linesRef.current) {
-      linesRef.current.geometry.setAttribute('position', new THREE.BufferAttribute(linePositions.slice(0, lineIndex), 3));
-      linesRef.current.geometry.setAttribute('color', new THREE.BufferAttribute(lineColors.slice(0, colorIndex), 3));
-      linesRef.current.geometry.attributes.position.needsUpdate = true;
-      linesRef.current.geometry.attributes.color.needsUpdate = true;
-    }
-  });
-
-  // Visibility logic
-  useFrame(() => {
-    if (!groupRef.current) return;
-    if (progress > 0.8 && progress < 0.95) {
-      groupRef.current.visible = true;
-    } else {
-      groupRef.current.visible = false;
-    }
-  });
-
-  return (
-    <group ref={groupRef} visible={false} position={[0, 2, 0]}>
-      <instancedMesh ref={nodesRef} args={[undefined, undefined, NODE_COUNT]}>
-        <boxGeometry args={[0.15, 0.02, 0.15]} />
-        <meshPhysicalMaterial 
-          color="#ffffff" 
-          emissive="#ffffff" 
-          emissiveIntensity={1.5} 
-          roughness={0.2} 
-          metalness={0.8}
-          toneMapped={false}
-        />
-      </instancedMesh>
-      <lineSegments ref={linesRef}>
-        <bufferGeometry />
-        <lineBasicMaterial 
-          vertexColors={true} 
-          transparent 
-          opacity={0.8} 
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-        />
-      </lineSegments>
-    </group>
-  );
-}
 
 function LiquidDrop({ progress }: { progress: number }) {
   const ref = useRef<THREE.Mesh>(null);
@@ -381,24 +156,24 @@ function LiquidDrop({ progress }: { progress: number }) {
   
   useFrame(() => {
     if (!ref.current || !materialRef.current) return;
-    const dropStart = 0.23;
-    const dropEnd = 0.30;
-    
+    const dropStart = 0.273;
+    const dropEnd = 0.364;
+
     if (progress > dropStart && progress < dropEnd) {
       ref.current.visible = true;
-      
+
       let t = 0;
-      let color = "#880000"; // Blood
-      
-      if (progress < 0.253) {
-        t = (progress - 0.23) / (0.253 - 0.23);
-        color = "#880000";
-      } else if (progress < 0.276) {
-        t = (progress - 0.253) / (0.276 - 0.253);
-        color = "#00ccff"; // Water
+      let color = "#2aa9ff"; // Water
+
+      if (progress < 0.303) {
+        t = (progress - 0.273) / (0.303 - 0.273);
+        color = "#2aa9ff"; // Water
+      } else if (progress < 0.333) {
+        t = (progress - 0.303) / (0.333 - 0.303);
+        color = "#9bd14b"; // Soil
       } else {
-        t = (progress - 0.276) / (0.30 - 0.276);
-        color = "#ffcc00"; // Serum
+        t = (progress - 0.333) / (0.364 - 0.333);
+        color = "#ffb020"; // Food
       }
       
       materialRef.current.color.set(color);
@@ -510,42 +285,36 @@ function Scene() {
     let targetPos = new THREE.Vector3(0, 0, 10 + mobileZOffset);
     let targetLookAt = new THREE.Vector3(0, -mobileYOffset, 0);
 
-    if (t < 0.07) { // Hero
+    if (t < 0.091) { // Hero
       targetPos.set(0, 0, 8 + mobileZOffset);
       targetLookAt.set(0, -mobileYOffset, 0);
-    } else if (t < 0.15) { // Sensor
+    } else if (t < 0.182) { // Sensor
       targetPos.set(0, 0, 6 + mobileZOffset);
       targetLookAt.set(0, -mobileYOffset, 0);
-    } else if (t < 0.23) { // Insertion
+    } else if (t < 0.273) { // Insertion
       targetPos.set(0, 5 + (isMobile ? 2 : 0), -0.5);
       targetLookAt.set(0, 0, -0.5);
-    } else if (t < 0.30) { // Sample
+    } else if (t < 0.364) { // Sample
       targetPos.set(0, 3 + (isMobile ? 1 : 0), 1.5);
       targetLookAt.set(0, 0, 1.5);
-    } else if (t < 0.38) { // Analysis
+    } else if (t < 0.455) { // Analysis
       targetPos.set(0, 1, 4 + mobileZOffset);
       targetLookAt.set(0, 0.5 - mobileYOffset, 0);
-    } else if (t < 0.46) { // Mobile
+    } else if (t < 0.545) { // Mobile
       targetPos.set(0, 0, 8 + mobileZOffset);
       targetLookAt.set(0, -mobileYOffset, 0);
-    } else if (t < 0.53) { // Results
+    } else if (t < 0.636) { // Results
       targetPos.set(0, 1, 4 + mobileZOffset);
       targetLookAt.set(0, 0.5 - mobileYOffset, 0);
-    } else if (t < 0.61) { // Applications
+    } else if (t < 0.727) { // Applications
       targetPos.set(10, 0, 8 + mobileZOffset);
       targetLookAt.set(10, -mobileYOffset, 0);
-    } else if (t < 0.69) { // Competitors (Market Gap)
-      targetPos.set(20, 0, 8 + mobileZOffset);
-      targetLookAt.set(20, -mobileYOffset, 0);
-    } else if (t < 0.76) { // Why Us
+    } else if (t < 0.818) { // Why Us
       targetPos.set(30, 0, 8 + mobileZOffset);
       targetLookAt.set(30, -mobileYOffset, 0);
-    } else if (t < 0.84) { // Target Market
-      targetPos.set(30, 0, 8 + mobileZOffset); // stay on Why Us or move slightly
+    } else if (t < 0.909) { // Target Market
+      targetPos.set(30, 0, 8 + mobileZOffset);
       targetLookAt.set(30, -mobileYOffset, 0);
-    } else if (t < 0.92) { // Future
-      targetPos.set(0, 2, 8 + mobileZOffset);
-      targetLookAt.set(0, -mobileYOffset, 0);
     } else { // Vision
       targetPos.set(0, 0, 10 + mobileZOffset);
       targetLookAt.set(0, -mobileYOffset, 0);
@@ -566,69 +335,68 @@ function Scene() {
       let vPos = new THREE.Vector3();
       let vRot = new THREE.Euler();
 
-      if (t < 0.07) {
+      if (t < 0.091) {
         // Hero
         aPos.set(0, 0, 0);
         aRot.set(0, 0, 0);
         vPos.set(10, 0, 0); // Hidden
-      } else if (t < 0.15) {
+      } else if (t < 0.182) {
         // Sensor
         aPos.set(-2, 0, 0);
         aRot.set(0, 0, 0);
         vPos.set(2, 0, 2);
         vRot.set(Math.PI / 4, t * 20, 0); // Spinning
-      } else if (t < 0.23) {
+      } else if (t < 0.273) {
         // Insertion
         aPos.set(0, 0, -2);
         aRot.set(-Math.PI / 2, 0, 0);
-        
-        if (t < 0.18) {
+
+        if (t < 0.212) {
           // Aligning
-          const alignT = (t - 0.15) / 0.03;
+          const alignT = (t - 0.182) / 0.03;
           vPos.set(0, 0, THREE.MathUtils.lerp(5, 2.5, alignT));
           vRot.set(0, Math.PI, 0);
-        } else if (t < 0.20) {
+        } else if (t < 0.232) {
           // Pause to show contacts
           vPos.set(0, 0, 2.5);
           vRot.set(0, Math.PI, 0);
         } else {
           // Inserting precisely into the slot with a snap
-          const insertT = (t - 0.20) / 0.03;
+          const insertT = (t - 0.232) / 0.041;
           const snapT = 1 - Math.pow(1 - insertT, 3); // cubic ease out
           vPos.set(0, 0, THREE.MathUtils.lerp(2.5, 1.55, snapT));
           vRot.set(0, Math.PI, 0);
-          
+
           // Add a physical "bump" to the AnalyteX device when inserted
           if (insertT > 0.8) {
              const bump = Math.sin((insertT - 0.8) * 5 * Math.PI) * 0.05;
              aPos.z -= bump;
           }
         }
-      } else if (t < 0.30) {
+      } else if (t < 0.364) {
         // Sample
         aPos.set(0, 0, -2);
         aRot.set(-Math.PI / 2, 0, 0);
         vPos.set(0, 0, 1.55);
         vRot.set(0, Math.PI, 0);
-      } else if (t < 0.38) {
+      } else if (t < 0.455) {
         // Analysis
         aPos.set(0, 0, 0);
         aRot.set(0, 0, 0);
         vPos.set(0, 0.05, 0);
         vRot.set(Math.PI / 2, 0, Math.PI);
-      } else if (t < 0.46) {
+      } else if (t < 0.545) {
         // Mobile
         aPos.set(-3, 0, 0);
         vPos.set(-3, 0.05, 0);
         vRot.set(Math.PI / 2, 0, Math.PI);
-      } else if (t < 0.84) {
-        // Results & Info
+      } else if (t < 0.909) {
+        // Results & Info (results, applications, why-us, target market)
         aPos.set(0, 0, 0);
         vPos.set(0, 0.05, 0);
         vRot.set(Math.PI / 2, 0, Math.PI);
       } else {
-        // Future (Swarm) & Vision
-        // Move device completely out of frame to separate from swarm
+        // Vision — move device out of frame for the team reveal
         aPos.set(0, 15, 0);
         vPos.set(0, 15, 0);
       }
@@ -659,9 +427,7 @@ function Scene() {
       <LiquidDrop progress={totalScrollProgress} />
       <MobilePhone progress={totalScrollProgress} />
       <ApplicationsVisual progress={totalScrollProgress} />
-      <MarketGapVisual progress={totalScrollProgress} />
       <WhyUsVisual progress={totalScrollProgress} />
-      <SwarmVisualization progress={totalScrollProgress} />
 
       <QuantumFabric />
       
