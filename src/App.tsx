@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'motion/react';
+import { motion, useScroll, useSpring, AnimatePresence } from 'motion/react';
 import { Game } from './components/Game';
 import { useGameStore, Section } from './store';
 import { UsecasesPage } from './components/UsecasesPage';
@@ -138,19 +138,10 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
 interface SectionContentProps {
   key?: any;
   section: typeof SECTIONS[0];
-  index: number;
   onWaitlistClick: () => void;
 }
 
-function SectionContent({ section, index, onWaitlistClick }: SectionContentProps) {
-  const { scrollYProgress } = useScroll();
-  
-  const start = index / SECTIONS.length;
-  const end = (index + 1) / SECTIONS.length;
-  
-  const opacity = useTransform(scrollYProgress, [start, start + 0.02, end - 0.02, end], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [start, start + 0.02, end - 0.02, end], [20, 0, 0, -20]);
-
+function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
   return (
     <div className={`min-h-[150dvh] flex flex-col items-center lg:items-start text-center lg:text-left justify-center px-6 md:px-12 lg:px-16 w-full mx-auto pointer-events-none`}>
       <motion.div 
@@ -160,13 +151,26 @@ function SectionContent({ section, index, onWaitlistClick }: SectionContentProps
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="max-w-[95vw] sm:max-w-lg md:max-w-xl lg:max-w-3xl lg:mx-0 w-full pointer-events-auto bg-black/60 lg:bg-transparent p-6 md:p-8 lg:p-0 rounded-3xl backdrop-blur-xl lg:backdrop-blur-none border border-white/10 lg:border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.5)] lg:shadow-none mt-[40dvh] md:mt-0"
       >
-        <motion.h2 className="text-[10px] md:text-xs lg:text-sm uppercase tracking-[0.4em] text-cyan-400 mb-2 md:mb-4 font-black drop-shadow-md">
+        <motion.h2 className="text-[10px] md:text-xs lg:text-sm uppercase tracking-[0.4em] text-cyan-400 mb-2 md:mb-4 font-black drop-shadow-md break-words">
           {section.id === 'vision' ? 'Meet the Team' : section.title}
         </motion.h2>
-        <motion.h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter text-white mb-3 sm:mb-4 md:mb-6 leading-none drop-shadow-2xl uppercase">
+        {/*
+          Fluid, container-aware sizing instead of fixed breakpoint jumps.
+          On desktop this text column is only the right HALF of the viewport
+          (see <main className="lg:w-1/2 ...">), so a size keyed to raw
+          viewport width (e.g. a flat lg:text-8xl) can be wider than the
+          column actually available for it — which is exactly what caused
+          long single words like "CONTAMINANT" to overflow their card. The
+          clamp() below scales continuously with viewport width instead of
+          jumping at 4 breakpoints, and its ceiling (4.5rem) is sized for the
+          narrower desktop column, so it holds up at any window size, not
+          just the ones we happened to test. break-words is a hard safety
+          net in case future copy has an even longer word.
+        */}
+        <motion.h1 className="text-[clamp(1.875rem,4vw+1rem,4.5rem)] font-black tracking-tighter text-white mb-3 sm:mb-4 md:mb-6 leading-none drop-shadow-2xl uppercase break-words">
           {section.id === 'hero' ? section.title : section.subtitle}
         </motion.h1>
-        <motion.p className="text-sm sm:text-base md:text-xl lg:text-2xl text-gray-300 leading-relaxed md:leading-tight mb-0 md:mb-8 font-medium drop-shadow-md">
+        <motion.p className="text-sm sm:text-base md:text-xl lg:text-2xl text-gray-300 leading-relaxed md:leading-tight mb-0 md:mb-8 font-medium drop-shadow-md break-words">
           {section.content}
         </motion.p>
         
@@ -253,9 +257,12 @@ function SectionContent({ section, index, onWaitlistClick }: SectionContentProps
 }
 
 export default function App() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  // Scoped to just the 11 story sections (not the CTA block that follows them),
+  // so progress 0→1 is driven by their real measured height on this display —
+  // not an assumption that content after them doesn't exist.
+  const sectionsRef = useRef<HTMLDivElement>(null);
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll({ target: sectionsRef, offset: ['start start', 'end end'] });
   const [time, setTime] = useState(new Date());
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -323,19 +330,19 @@ export default function App() {
       </AnimatePresence>
 
       <main className="relative z-10 lg:w-1/2 lg:ml-[50%]">
-        <div className="flex flex-col">
-          {SECTIONS.map((section, i) => (
-            <SectionContent key={section.id} section={section} index={i} onWaitlistClick={() => setIsWaitlistOpen(true)} />
+        <div ref={sectionsRef} className="flex flex-col">
+          {SECTIONS.map((section) => (
+            <SectionContent key={section.id} section={section} onWaitlistClick={() => setIsWaitlistOpen(true)} />
           ))}
-
-          <motion.div className="min-h-[60vh] flex flex-col items-start justify-center p-8 md:p-16 border-t border-white/5" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-             <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-10 italic">Explore The <br/> Sensor Catalogue.</h2>
-             <button onClick={() => setShowUsecases(true)} className="group flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-black uppercase tracking-[0.2em] hover:bg-cyan-400 transition-all cursor-pointer">
-                Browse Sensors &amp; Pre-order
-                <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-2 transition-transform">➔</div>
-             </button>
-          </motion.div>
         </div>
+
+        <motion.div className="min-h-[60vh] flex flex-col items-start justify-center p-8 md:p-16 border-t border-white/5" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+           <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-10 italic">Explore The <br/> Sensor Catalogue.</h2>
+           <button onClick={() => setShowUsecases(true)} className="group flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-black uppercase tracking-[0.2em] hover:bg-cyan-400 transition-all cursor-pointer">
+              Browse Sensors &amp; Pre-order
+              <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-2 transition-transform">➔</div>
+           </button>
+        </motion.div>
       </main>
 
       {/* Progress Footer */}
