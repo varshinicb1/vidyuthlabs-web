@@ -1,0 +1,6 @@
+# Cloudflare Pages project serving vidyuthlabs.com (GitHub Pages serves vidyuthlabs.co.in).
+# Deployed by the deploy-cloudflare job in .github/workflows/deploy.yml.
+# Manual deploy: npm run build && npx wrangler pages deploy
+name = "vidyuthlabs-web"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-09-01"
