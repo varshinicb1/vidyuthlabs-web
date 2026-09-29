@@ -6,7 +6,8 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Float, Text, MeshDistortMaterial } from '@react-three/drei';
+import { Float, MeshDistortMaterial } from '@react-three/drei';
+import { Text } from './three/Text';
 
 export function NanoX({ isFloating = true }: { isFloating?: boolean }) {
   const meshRef = useRef<THREE.Group>(null);

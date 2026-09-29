@@ -1,7 +1,8 @@
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Text, Line, Float } from '@react-three/drei';
+import { Line, Float } from '@react-three/drei';
+import { Text } from './three/Text';
 import { useGameStore } from '../store';
 
 export function AnalyteX() {
@@ -288,8 +289,8 @@ export function AnalyteX() {
                 <Text position={[0, 0.15, 0]} fontSize={0.14} color="yellow" letterSpacing={0.05}>WAITING FOR NANOX...</Text>
                 <Text position={[0, -0.1, 0]} fontSize={0.09} color="gray">Insert into bottom slot</Text>
                 <group ref={arrowRef} position={[0, -0.3, 0]}>
-                  <Text position={[0, 0.05, 0]} fontSize={0.15} color="yellow" rotation={[0, 0, -Math.PI/2]} fillOpacity={0.5}>➔</Text>
-                  <Text position={[0, 0, 0]} fontSize={0.15} color="yellow" rotation={[0, 0, -Math.PI/2]}>➔</Text>
+                  <Text position={[0, 0.05, 0]} fontSize={0.15} color="yellow" fillOpacity={0.5}>↓</Text>
+                  <Text position={[0, 0, 0]} fontSize={0.15} color="yellow">↓</Text>
                 </group>
               </group>
             )}

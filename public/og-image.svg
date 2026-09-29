@@ -26,8 +26,8 @@
   <text x="80" y="345" fill="#ffffff" font-size="76" font-weight="800">electrochemistry,</text>
   <text x="80" y="430" fill="#00e5ff" font-size="76" font-weight="800">in your hand.</text>
 
-  <text x="80" y="500" fill="#9aa5ab" font-size="30" font-weight="500">Portable potentiostat • Nanomaterial screen-printed electrodes</text>
-  <text x="80" y="542" fill="#9aa5ab" font-size="30" font-weight="500">Heavy metals • Formalin • Soil • Water • Research • Industry</text>
+  <text x="80" y="500" fill="#9aa5ab" font-size="25" font-weight="500">Portable potentiostat • Nanomaterial screen-printed electrodes</text>
+  <text x="80" y="538" fill="#9aa5ab" font-size="25" font-weight="500">Heavy metals • Formalin • Soil • Water • Research • Industry</text>
 
   <!-- SPE chip illustration -->
   <g transform="translate(880 190) rotate(-14)">

@@ -1,6 +1,7 @@
 import { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, ContactShadows, Text, Line, Float, Stars, Grid } from '@react-three/drei';
+import { Environment, ContactShadows, Line, Float, Stars, Grid } from '@react-three/drei';
+import { Text } from './three/Text';
 import * as THREE from 'three';
 import { AnalyteX } from './AnalyteX';
 import { NanoX } from './NanoX';
@@ -411,7 +412,8 @@ function Scene() {
 
   return (
     <>
-      <Environment preset="city" />
+      {/* Self-hosted (CC0, from @pmndrs/assets); preset="city" fetches from raw.githack.com at runtime. */}
+      <Environment files="/hdri/city.exr" />
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
       <directionalLight position={[-10, 10, -5]} intensity={0.5} color="#00ffcc" />

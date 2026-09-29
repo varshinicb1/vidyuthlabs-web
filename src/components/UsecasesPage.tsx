@@ -1,19 +1,31 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Check, ArrowRight } from 'lucide-react';
 import { CATALOGUE } from '../data/catalogue';
+import { ErrorBoundary } from './ErrorBoundary';
 
 const SpeViewer = lazy(() =>
   import('./three/SpeViewer').then((m) => ({ default: m.SpeViewer })),
 );
 
 export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPreorder: () => void }) {
+  // Escape closes the catalogue, unless the pre-order dialog is open on top of it.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !document.querySelector('[aria-modal="true"]')) onBack();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onBack]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] bg-black overflow-y-auto"
+      className="fixed inset-0 z-[200] bg-black overflow-y-auto overscroll-contain"
+      role="dialog"
+      aria-label="Sensor catalogue"
     >
       <div className="max-w-7xl mx-auto px-6 py-12 md:py-20">
         {/* Header */}
@@ -21,6 +33,7 @@ export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPre
           <div>
             <button
               onClick={onBack}
+              autoFocus
               className="group flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors mb-8 cursor-pointer"
             >
               <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
@@ -65,9 +78,11 @@ export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPre
                 className="relative h-60"
                 style={{ background: `radial-gradient(120% 90% at 50% 0%, rgba(${item.accent},0.18), transparent 70%)` }}
               >
-                <Suspense fallback={<div className="h-full w-full" />}>
-                  <SpeViewer coating={item.coating} code={item.code} />
-                </Suspense>
+                <ErrorBoundary>
+                  <Suspense fallback={<div className="h-full w-full" />}>
+                    <SpeViewer coating={item.coating} code={item.code} />
+                  </Suspense>
+                </ErrorBoundary>
                 <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/50 px-3 py-1 text-[11px] font-black tracking-widest text-white">
                   {item.code}
                 </span>

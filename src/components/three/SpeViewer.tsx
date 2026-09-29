@@ -6,8 +6,8 @@ import { LazyMount } from './LazyMount';
 
 /**
  * Interactive 3D viewer for a single SPE. Drag to rotate; auto-rotates when
- * idle. One shared instance is reused across the catalogue (coating/code swap
- * on tab change) so the page only ever holds one extra WebGL context here.
+ * idle. Each catalogue card mounts its own instance once it scrolls into view
+ * (see LazyMount).
  */
 export function SpeViewer({ coating, code }: { coating: string; code: string }) {
   return (

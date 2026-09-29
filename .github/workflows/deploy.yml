@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - master
+  # Typecheck and build every PR so a broken build is caught before it reaches the live site.
+  pull_request:
 
 permissions:
   contents: read
@@ -12,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: ${{ github.event_name == 'push' && 'pages' || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -27,17 +29,22 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+      - name: Typecheck
+        run: npm run lint
       - name: Build
         run: npm run build
       - name: Setup Pages
+        if: github.event_name == 'push'
         uses: actions/configure-pages@v4
       - name: Upload artifact
+        if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
 
   deploy:
+    if: github.event_name == 'push'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
