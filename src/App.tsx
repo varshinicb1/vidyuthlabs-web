@@ -3,14 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useId, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'motion/react';
-import { Game } from './components/Game';
 import { useGameStore, Section } from './store';
 import { UsecasesPage } from './components/UsecasesPage';
-import { whatsappLink } from './config';
-import founderImg from './assets/varshini.png';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { GOOGLE_SCRIPT_URL, LINKEDIN, whatsappLink } from './config';
+import founderImg from './assets/varshini.webp';
 import manjunathaImg from './assets/manjunatha.jpg';
+
+// The WebGL scene (three.js + drei) is most of the JS bundle; load it after the
+// page copy so the text is readable before the 3D scene has downloaded.
+const Game = lazy(() => import('./components/Game').then((m) => ({ default: m.Game })));
 
 const SECTIONS: { id: Section; title: string; subtitle: string; content: string }[] = [
   { id: 'hero', title: 'AnalyteX', subtitle: 'The Lab In Your Hand.', content: 'A portable potentiostat for lab-grade electrochemistry, anywhere. One device, an interchangeable sensor for every test.' },
@@ -33,14 +37,20 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
+  const titleId = useId();
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
-    
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwt_dXRV9Dl6aUXOpXUS0NW_fPJzB7I6lHq6scKN-37oIr2pBiNqMBvU3D2cjvmtNqc/exec';
 
     try {
       const finalUrl = `${GOOGLE_SCRIPT_URL}?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&message=${encodeURIComponent(message)}`;
@@ -62,16 +72,18 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
         className="bg-gray-900 border border-white/10 p-8 rounded-3xl w-full max-w-md shadow-2xl relative"
         onClick={e => e.stopPropagation()}
         role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
       >
-        <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tighter italic">Reserve Your Kit</h2>
-        <p className="text-gray-400 mb-8 text-sm leading-relaxed border-l-2 border-cyan-400 pl-4 font-medium uppercase tracking-widest">
+        <h2 id={titleId} className="text-3xl font-black text-white mb-2 uppercase tracking-tighter italic">Reserve Your Kit</h2>
+        <p className="text-gray-400 mb-8 text-sm leading-relaxed border-l-2 border-gold-400 pl-4 font-medium uppercase tracking-widest">
           Pre-order sensor kits now · AnalyteX device coming soon. No payment today — we confirm by email.
         </p>
 
         {status === 'success' ? (
           <div className="text-center py-8">
-            <div className="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyan-400/50">
-               <span className="text-cyan-400 text-2xl font-black">✓</span>
+            <div className="w-16 h-16 bg-gold-400/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold-400/50">
+               <span className="text-gold-400 text-2xl font-black">✓</span>
             </div>
             <h3 className="text-white font-bold text-xl mb-2">Access Granted</h3>
             <p className="text-gray-400 text-sm italic">{statusMessage}</p>
@@ -84,8 +96,10 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               value={name}
               onChange={e => setName(e.target.value)}
               required
+              autoFocus
+              autoComplete="name"
               aria-label="Your Name"
-              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"
+              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors"
             />
             <input 
               type="email" 
@@ -93,8 +107,9 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
+              autoComplete="email"
               aria-label="Your Email"
-              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"
+              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors"
             />
             <input 
               type="tel" 
@@ -102,8 +117,9 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               value={phone}
               onChange={e => setPhone(e.target.value)}
               required
+              autoComplete="tel"
               aria-label="Mobile Number"
-              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"
+              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors"
             />
             <textarea 
               placeholder="How can VidyuthLabs help you?" 
@@ -111,13 +127,13 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               onChange={e => setMessage(e.target.value)}
               rows={3}
               aria-label="Message"
-              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors resize-none"
+              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors resize-none"
             />
             {status === 'error' && <p className="text-red-400 text-sm mt-1">{statusMessage}</p>}
             <button 
               type="submit" 
               disabled={status === 'loading'}
-              className="bg-cyan-400 hover:bg-cyan-300 text-black font-bold py-3 rounded-xl transition-colors mt-2 disabled:opacity-50"
+              className="bg-gold-400 hover:bg-gold-300 text-black font-bold py-3 rounded-xl transition-colors mt-2 disabled:opacity-50"
             >
               {status === 'loading' ? 'Reserving...' : 'Reserve My Kit'}
             </button>
@@ -142,8 +158,10 @@ interface SectionContentProps {
 }
 
 function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
+  // Exactly one <h1> on the page (the hero); every other section is an <h2>.
+  const Heading = section.id === 'hero' ? 'h1' : 'h2';
   return (
-    <div className={`min-h-[150dvh] flex flex-col items-center lg:items-start text-center lg:text-left justify-center px-6 md:px-12 lg:px-16 w-full mx-auto pointer-events-none`}>
+    <div id={section.id} className={`min-h-[150dvh] flex flex-col items-center lg:items-start text-center lg:text-left justify-center px-6 md:px-12 lg:px-16 w-full mx-auto pointer-events-none`}>
       <motion.div 
         initial={{ opacity: 0, scale: 0.95, y: 30 }}
         whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -151,9 +169,9 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="max-w-[95vw] sm:max-w-lg md:max-w-xl lg:max-w-3xl lg:mx-0 w-full pointer-events-auto bg-black/60 lg:bg-transparent p-6 md:p-8 lg:p-0 rounded-3xl backdrop-blur-xl lg:backdrop-blur-none border border-white/10 lg:border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.5)] lg:shadow-none mt-[40dvh] md:mt-0"
       >
-        <motion.h2 className="text-[10px] md:text-xs lg:text-sm uppercase tracking-[0.4em] text-cyan-400 mb-2 md:mb-4 font-black drop-shadow-md break-words">
+        <p className="text-[10px] md:text-xs lg:text-sm uppercase tracking-[0.4em] text-gold-400 mb-2 md:mb-4 font-black drop-shadow-md break-words">
           {section.id === 'vision' ? 'Meet the Team' : section.title}
-        </motion.h2>
+        </p>
         {/*
           Fluid, container-aware sizing instead of fixed breakpoint jumps.
           On desktop this text column is only the right HALF of the viewport
@@ -167,16 +185,16 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
           just the ones we happened to test. break-words is a hard safety
           net in case future copy has an even longer word.
         */}
-        <motion.h1 className="text-[clamp(1.875rem,4vw+1rem,4.5rem)] font-black tracking-tighter text-white mb-3 sm:mb-4 md:mb-6 leading-none drop-shadow-2xl uppercase break-words">
+        <Heading className="text-[clamp(1.875rem,4vw+1rem,4.5rem)] font-black tracking-tighter text-white mb-3 sm:mb-4 md:mb-6 leading-none drop-shadow-2xl uppercase break-words">
           {section.id === 'hero' ? section.title : section.subtitle}
-        </motion.h1>
-        <motion.p className="text-sm sm:text-base md:text-xl lg:text-2xl text-gray-300 leading-relaxed md:leading-tight mb-0 md:mb-8 font-medium drop-shadow-md break-words">
+        </Heading>
+        <p className="text-sm sm:text-base md:text-xl lg:text-2xl text-gray-300 leading-relaxed md:leading-tight mb-0 md:mb-8 font-medium drop-shadow-md break-words">
           {section.content}
-        </motion.p>
+        </p>
         
         {section.id === 'hero' && (
            <div className="mt-8 flex justify-center lg:justify-start">
-             <button onClick={onWaitlistClick} className="pointer-events-auto bg-cyan-400 hover:bg-cyan-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,229,255,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
+             <button onClick={onWaitlistClick} className="pointer-events-auto bg-gold-400 hover:bg-gold-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(212,162,76,0.4)] hover:shadow-[0_0_30px_rgba(212,162,76,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
                Pre-order Now
              </button>
            </div>
@@ -187,11 +205,11 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
             <div className="flex flex-col gap-6 w-full">
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 pb-6 border-b border-white/10">
                 <div className="w-28 h-28 sm:w-32 sm:h-32 shrink-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 overflow-hidden shadow-2xl">
-                  <img src={founderImg} alt="Varshini CB" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
+                  <img src={founderImg} alt="Varshini CB" width={256} height={256} loading="lazy" decoding="async" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
                 <div className="text-center sm:text-left flex-1">
                   <div className="text-2xl sm:text-3xl text-white font-black tracking-tight uppercase italic">Varshini CB</div>
-                  <div className="text-cyan-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">CEO & Founder, VidyuthLabs</div>
+                  <div className="text-gold-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">CEO & Founder, VidyuthLabs</div>
                   <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-3 max-w-md">
                     Designing space-grade subsystems for Team Antariksh. Bringing orbital-class hardware engineering to portable bio-detectors.
                   </p>
@@ -202,7 +220,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
                   </div>
                 </div>
                 <div className="flex sm:flex-col gap-2 shrink-0">
-                  <a href="https://www.linkedin.com/in/varshini-cb-821176360/" target="_blank" rel="noreferrer" aria-label="Varshini CB on LinkedIn" className="w-11 h-11 flex items-center justify-center bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors pointer-events-auto shadow-lg shadow-[#0077b5]/20">
+                  <a href={LINKEDIN.varshini} target="_blank" rel="noreferrer" aria-label="Varshini CB on LinkedIn" className="w-11 h-11 flex items-center justify-center bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors pointer-events-auto shadow-lg shadow-[#0077b5]/20">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                   </a>
                   <a href={whatsappLink("Hi Varshini, I'm interested in VidyuthLabs and would like to talk.")} target="_blank" rel="noreferrer" aria-label="Message Varshini on WhatsApp" className="w-11 h-11 flex items-center justify-center bg-[#25D366] text-white rounded-full hover:brightness-110 transition pointer-events-auto shadow-lg shadow-[#25D366]/20">
@@ -213,11 +231,11 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
 
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 pb-6">
                 <div className="w-28 h-28 sm:w-32 sm:h-32 shrink-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 overflow-hidden shadow-2xl">
-                  <img src={manjunathaImg} alt="Dr. Manjunatha C" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
+                  <img src={manjunathaImg} alt="Dr. Manjunatha C" width={256} height={256} loading="lazy" decoding="async" className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
                 <div className="text-center sm:text-left flex-1">
                   <div className="text-2xl sm:text-3xl text-white font-black tracking-tight uppercase italic">Dr. Manjunatha C</div>
-                  <div className="text-cyan-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">Chief Scientific Advisor</div>
+                  <div className="text-gold-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">Chief Scientific Advisor</div>
                   <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-3 max-w-md">
                     Associate Professor at RVCE, Department of Chemistry. 23 Years of Teaching and 18 Years of Research experience in inorganic nanomaterials.
                   </p>
@@ -227,7 +245,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
                     <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-gray-400 font-bold uppercase tracking-widest">Inorganic Nanomaterials</span>
                   </div>
                 </div>
-                <a href="https://www.linkedin.com/in/manjunatha-channegowda-phd-21645a3a/" target="_blank" rel="noreferrer" className="shrink-0 w-11 h-11 flex items-center justify-center bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors pointer-events-auto shadow-lg shadow-[#0077b5]/20">
+                <a href={LINKEDIN.manjunatha} target="_blank" rel="noreferrer" aria-label="Dr. Manjunatha C on LinkedIn" className="shrink-0 w-11 h-11 flex items-center justify-center bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors pointer-events-auto shadow-lg shadow-[#0077b5]/20">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
               </div>
@@ -237,7 +255,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
 
         {section.id === 'applications' && (
           <div className="mt-8 flex justify-center lg:justify-start">
-            <button onClick={onWaitlistClick} className="pointer-events-auto bg-cyan-400 hover:bg-cyan-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,229,255,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
+            <button onClick={onWaitlistClick} className="pointer-events-auto bg-gold-400 hover:bg-gold-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(212,162,76,0.4)] hover:shadow-[0_0_30px_rgba(212,162,76,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
               Pre-order Sensors
             </button>
           </div>
@@ -248,11 +266,38 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }} className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[60]">
           <span className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-black">Scroll to Explore</span>
           <div className="w-5 h-8 border-2 border-white/10 rounded-full flex justify-center p-1 relative bg-black/50">
-            <motion.div className="w-1 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#00e5ff]" animate={{ y: [0, 12, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} />
+            <motion.div className="w-1 h-2 bg-gold-400 rounded-full shadow-[0_0_10px_#d4a24c]" animate={{ y: [0, 12, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} />
           </div>
         </motion.div>
       )}
     </div>
+  );
+}
+
+// The clock and custom cursor update every second / every mouse move. They
+// live in their own components so those updates re-render only themselves,
+// not the whole page and the WebGL scene.
+function Clock() {
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  return <>{time.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}</>;
+}
+
+function CyberCursor() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const handleMouse = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', handleMouse);
+    return () => window.removeEventListener('mousemove', handleMouse);
+  }, []);
+  return (
+    <>
+      <motion.div className="fixed top-0 left-0 w-8 h-8 rounded-full border border-gold-400 pointer-events-none z-[9999] hidden lg:block" animate={{ x: mousePos.x - 16, y: mousePos.y - 16 }} transition={{ type: 'spring', damping: 25, stiffness: 250 }} />
+      <motion.div className="fixed top-0 left-0 w-1 h-1 bg-gold-400 rounded-full pointer-events-none z-[9999] hidden lg:block" animate={{ x: mousePos.x - 2, y: mousePos.y - 2 }} />
+    </>
   );
 }
 
@@ -263,9 +308,6 @@ export default function App() {
   const sectionsRef = useRef<HTMLDivElement>(null);
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
   const { scrollYProgress } = useScroll({ target: sectionsRef, offset: ['start start', 'end end'] });
-  const [time, setTime] = useState(new Date());
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
   const [showUsecases, setShowUsecases] = useState(false);
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
@@ -274,36 +316,33 @@ export default function App() {
   const setTotalScrollProgress = useGameStore(state => state.setTotalScrollProgress);
 
   useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    const handleMouse = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handleMouse);
-    return () => { clearInterval(timer); window.removeEventListener('mousemove', handleMouse); };
-  }, []);
-
-  useEffect(() => {
     return smoothProgress.on('change', (latest) => {
       setTotalScrollProgress(latest);
       const sectionIndex = Math.min(Math.floor(latest * SECTIONS.length), SECTIONS.length - 1);
       setActiveSection(SECTIONS[sectionIndex].id);
     });
-  }, [smoothProgress]);
+  }, [smoothProgress, setActiveSection, setTotalScrollProgress]);
 
   const isAtTop = activeSection === 'hero';
 
-  const scrollToSection = (index: number) => {
-    window.scrollTo({ top: index * window.innerHeight * 1.5, behavior: 'smooth' });
+  // Scroll to the section's real position; sections are min-h-[150dvh], so
+  // some (e.g. the team section on mobile) are taller than a fixed multiple.
+  const scrollToSection = (id: Section) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="bg-black text-white font-sans selection:bg-cyan-500 selection:text-black min-h-screen cursor-crosshair overflow-x-hidden">
+    <div className="bg-black text-white font-sans selection:bg-gold-500 selection:text-black min-h-screen cursor-crosshair overflow-x-hidden">
       <WaitlistModal isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
 
-      {/* Cyber Cursor */}
-      <motion.div className="fixed top-0 left-0 w-8 h-8 rounded-full border border-cyan-400 pointer-events-none z-[9999] hidden lg:block" animate={{ x: mousePos.x - 16, y: mousePos.y - 16, scale: isHovering ? 1.5 : 1, backgroundColor: isHovering ? 'rgba(0, 229, 255, 0.1)' : 'transparent' }} transition={{ type: 'spring', damping: 25, stiffness: 250 }} />
-      <motion.div className="fixed top-0 left-0 w-1 h-1 bg-cyan-400 rounded-full pointer-events-none z-[9999] hidden lg:block" animate={{ x: mousePos.x - 2, y: mousePos.y - 2 }} />
+      <CyberCursor />
 
-      <div className="fixed inset-0 w-full z-0 pointer-events-none">
-        <Game />
+      <div className="fixed inset-0 w-full z-0 pointer-events-none" aria-hidden="true">
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <Game />
+          </Suspense>
+        </ErrorBoundary>
       </div>
 
       {/* Navigation / Brand - EXPLICIT FADE CONTROL */}
@@ -316,12 +355,15 @@ export default function App() {
             className="fixed top-0 left-0 w-full p-6 md:p-8 flex justify-between items-start z-50 pointer-events-none"
           >
             <div className="flex flex-col pointer-events-auto">
-              <div className="text-2xl md:text-5xl font-black tracking-tighter uppercase text-white italic">VidyuthLabs</div>
+              <div className="flex items-center gap-3 md:gap-4">
+                <img src="/logo.png" alt="" width={56} height={56} className="w-9 h-9 md:w-14 md:h-14 shrink-0" />
+                <div className="text-2xl md:text-5xl font-black tracking-tighter uppercase text-white italic">VidyuthLabs</div>
+              </div>
               <div className="flex items-center gap-4 mt-2">
-                <div className="text-[10px] text-cyan-400 font-bold tracking-[0.4em] uppercase">Always on, always aware.</div>
-                <div className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
+                <div className="text-[10px] text-gold-400 font-bold tracking-[0.4em] uppercase">Always on, always aware.</div>
+                <div className="w-1 h-1 rounded-full bg-gold-400 animate-pulse" />
                 <div className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
-                  {time.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                  <Clock />
                 </div>
               </div>
             </div>
@@ -338,7 +380,7 @@ export default function App() {
 
         <motion.div className="min-h-[60vh] flex flex-col items-start justify-center p-8 md:p-16 border-t border-white/5" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
            <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-10 italic">Explore The <br/> Sensor Catalogue.</h2>
-           <button onClick={() => setShowUsecases(true)} className="group flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-black uppercase tracking-[0.2em] hover:bg-cyan-400 transition-all cursor-pointer">
+           <button onClick={() => setShowUsecases(true)} className="group flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-black uppercase tracking-[0.2em] hover:bg-gold-400 transition-all cursor-pointer">
               Browse Sensors &amp; Pre-order
               <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-2 transition-transform">➔</div>
            </button>
@@ -346,25 +388,25 @@ export default function App() {
       </main>
 
       {/* Progress Footer */}
-      <div className="fixed bottom-8 left-8 z-50 flex items-center gap-6">
+      <div className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-6">
         <div className="flex items-center gap-4">
-          <div className="text-[10px] font-mono text-cyan-400 font-black tracking-widest focus:outline-none">
+          <div className="text-[10px] font-mono text-gold-400 font-black tracking-widest">
             {(SECTIONS.findIndex(s => s.id === activeSection) + 1).toString().padStart(2, '0')}
           </div>
           <div className="w-24 md:w-48 h-px bg-white/10 relative">
-            <motion.div className="absolute top-0 left-0 h-full bg-cyan-500 shadow-[0_0_15px_#00e5ff]" style={{ scaleX: smoothProgress, transformOrigin: 'left' }} />
+            <motion.div className="absolute top-0 left-0 h-full bg-gold-500 shadow-[0_0_15px_#d4a24c]" style={{ scaleX: smoothProgress, transformOrigin: 'left' }} />
           </div>
           <div className="text-[10px] font-mono text-gray-600 font-black">{SECTIONS.length.toString().padStart(2, '0')}</div>
         </div>
       </div>
 
       <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
-        {SECTIONS.map((section, i) => (
-          <button key={section.id} onClick={() => scrollToSection(i)} className="group relative flex items-center justify-end w-8 h-4 focus:outline-none cursor-pointer">
-            <span className="absolute right-10 px-3 py-1 bg-cyan-400 text-black text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all pointer-events-none">
+        {SECTIONS.map((section) => (
+          <button key={section.id} onClick={() => scrollToSection(section.id)} aria-label={`Go to ${section.title}`} aria-current={section.id === activeSection ? 'step' : undefined} className="group relative flex items-center justify-end w-8 h-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 rounded cursor-pointer">
+            <span aria-hidden="true" className="absolute right-10 px-3 py-1 bg-gold-400 text-black text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all pointer-events-none whitespace-nowrap">
               {section.title}
             </span>
-            <div className={`w-1 h-1 rounded-full transition-all duration-500 ${section.id === activeSection ? 'bg-cyan-400 scale-[3]' : 'bg-white/20'}`} />
+            <div className={`w-1 h-1 rounded-full transition-all duration-500 ${section.id === activeSection ? 'bg-gold-400 scale-[3]' : 'bg-white/20'}`} />
           </button>
         ))}
       </div>

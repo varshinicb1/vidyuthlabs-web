@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - master
+  # Typecheck and build every PR so a broken build is caught before it reaches the live site.
+  pull_request:
 
 permissions:
   contents: read
@@ -12,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: ${{ github.event_name == 'push' && 'pages' || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -27,17 +29,22 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+      - name: Typecheck
+        run: npm run lint
       - name: Build
         run: npm run build
       - name: Setup Pages
+        if: github.event_name == 'push'
         uses: actions/configure-pages@v4
       - name: Upload artifact
+        if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
 
   deploy:
+    if: github.event_name == 'push'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -47,3 +54,53 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Same build, also published to Cloudflare Pages for vidyuthlabs.com.
+  # Needs repo secrets CLOUDFLARE_API_TOKEN (Account > Cloudflare Pages: Edit)
+  # and CLOUDFLARE_ACCOUNT_ID; skipped with a warning until both are set, so
+  # it never blocks the GitHub Pages deploy above.
+  deploy-cloudflare:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PROJECT: vidyuthlabs-web
+      DOMAIN: vidyuthlabs.com
+    steps:
+      - name: Check Cloudflare secrets
+        id: secrets
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID not set; skipping vidyuthlabs.com deploy."
+          fi
+      - uses: actions/checkout@v4
+        if: steps.secrets.outputs.ok == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.secrets.outputs.ok == 'true'
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install and build
+        if: steps.secrets.outputs.ok == 'true'
+        run: npm ci && npm run build
+      - name: Create Pages project (first run only)
+        if: steps.secrets.outputs.ok == 'true'
+        run: npx --yes wrangler@4 pages project create "$PROJECT" --production-branch=main || echo "Project already exists."
+      - name: Deploy to Cloudflare Pages
+        if: steps.secrets.outputs.ok == 'true'
+        run: npx --yes wrangler@4 pages deploy dist --project-name="$PROJECT" --branch=main
+      - name: Attach custom domain
+        if: steps.secrets.outputs.ok == 'true'
+        # Idempotent: Cloudflare answers with an "already exists" error once attached.
+        run: |
+          curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT/domains" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "{\"name\":\"$DOMAIN\"}"
