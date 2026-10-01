@@ -5,8 +5,10 @@
   --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
   --color-primary-light: #ffffff;
   --color-primary-dark: #000000;
-  --color-accent-teal: #00e5ff;
-  --color-accent-teal-dark: #008b99;
+  /* Accent: the gold of the VidyuthLabs logo dot (#b88a44). 400 is 9:1 on black (WCAG AAA). */
+  --color-gold-300: #f0c878;
+  --color-gold-400: #d4a24c;
+  --color-gold-500: #b88a44;
   --color-accent-coral: #ff4d6d;
   --color-surface-light: #f8fafc;
   --color-surface-dark: #0f172a;

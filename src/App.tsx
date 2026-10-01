@@ -76,14 +76,14 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
         aria-labelledby={titleId}
       >
         <h2 id={titleId} className="text-3xl font-black text-white mb-2 uppercase tracking-tighter italic">Reserve Your Kit</h2>
-        <p className="text-gray-400 mb-8 text-sm leading-relaxed border-l-2 border-cyan-400 pl-4 font-medium uppercase tracking-widest">
+        <p className="text-gray-400 mb-8 text-sm leading-relaxed border-l-2 border-gold-400 pl-4 font-medium uppercase tracking-widest">
           Pre-order sensor kits now · AnalyteX device coming soon. No payment today — we confirm by email.
         </p>
 
         {status === 'success' ? (
           <div className="text-center py-8">
-            <div className="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyan-400/50">
-               <span className="text-cyan-400 text-2xl font-black">✓</span>
+            <div className="w-16 h-16 bg-gold-400/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold-400/50">
+               <span className="text-gold-400 text-2xl font-black">✓</span>
             </div>
             <h3 className="text-white font-bold text-xl mb-2">Access Granted</h3>
             <p className="text-gray-400 text-sm italic">{statusMessage}</p>
@@ -99,7 +99,7 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               autoFocus
               autoComplete="name"
               aria-label="Your Name"
-              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"
+              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors"
             />
             <input 
               type="email" 
@@ -109,7 +109,7 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               required
               autoComplete="email"
               aria-label="Your Email"
-              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"
+              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors"
             />
             <input 
               type="tel" 
@@ -119,7 +119,7 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               required
               autoComplete="tel"
               aria-label="Mobile Number"
-              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"
+              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors"
             />
             <textarea 
               placeholder="How can VidyuthLabs help you?" 
@@ -127,13 +127,13 @@ function WaitlistModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               onChange={e => setMessage(e.target.value)}
               rows={3}
               aria-label="Message"
-              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors resize-none"
+              className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-400 transition-colors resize-none"
             />
             {status === 'error' && <p className="text-red-400 text-sm mt-1">{statusMessage}</p>}
             <button 
               type="submit" 
               disabled={status === 'loading'}
-              className="bg-cyan-400 hover:bg-cyan-300 text-black font-bold py-3 rounded-xl transition-colors mt-2 disabled:opacity-50"
+              className="bg-gold-400 hover:bg-gold-300 text-black font-bold py-3 rounded-xl transition-colors mt-2 disabled:opacity-50"
             >
               {status === 'loading' ? 'Reserving...' : 'Reserve My Kit'}
             </button>
@@ -169,7 +169,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="max-w-[95vw] sm:max-w-lg md:max-w-xl lg:max-w-3xl lg:mx-0 w-full pointer-events-auto bg-black/60 lg:bg-transparent p-6 md:p-8 lg:p-0 rounded-3xl backdrop-blur-xl lg:backdrop-blur-none border border-white/10 lg:border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.5)] lg:shadow-none mt-[40dvh] md:mt-0"
       >
-        <p className="text-[10px] md:text-xs lg:text-sm uppercase tracking-[0.4em] text-cyan-400 mb-2 md:mb-4 font-black drop-shadow-md break-words">
+        <p className="text-[10px] md:text-xs lg:text-sm uppercase tracking-[0.4em] text-gold-400 mb-2 md:mb-4 font-black drop-shadow-md break-words">
           {section.id === 'vision' ? 'Meet the Team' : section.title}
         </p>
         {/*
@@ -194,7 +194,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
         
         {section.id === 'hero' && (
            <div className="mt-8 flex justify-center lg:justify-start">
-             <button onClick={onWaitlistClick} className="pointer-events-auto bg-cyan-400 hover:bg-cyan-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,229,255,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
+             <button onClick={onWaitlistClick} className="pointer-events-auto bg-gold-400 hover:bg-gold-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(212,162,76,0.4)] hover:shadow-[0_0_30px_rgba(212,162,76,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
                Pre-order Now
              </button>
            </div>
@@ -209,7 +209,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
                 </div>
                 <div className="text-center sm:text-left flex-1">
                   <div className="text-2xl sm:text-3xl text-white font-black tracking-tight uppercase italic">Varshini CB</div>
-                  <div className="text-cyan-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">CEO & Founder, VidyuthLabs</div>
+                  <div className="text-gold-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">CEO & Founder, VidyuthLabs</div>
                   <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-3 max-w-md">
                     Designing space-grade subsystems for Team Antariksh. Bringing orbital-class hardware engineering to portable bio-detectors.
                   </p>
@@ -235,7 +235,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
                 </div>
                 <div className="text-center sm:text-left flex-1">
                   <div className="text-2xl sm:text-3xl text-white font-black tracking-tight uppercase italic">Dr. Manjunatha C</div>
-                  <div className="text-cyan-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">Chief Scientific Advisor</div>
+                  <div className="text-gold-400 font-bold text-sm sm:text-base uppercase tracking-widest mt-1">Chief Scientific Advisor</div>
                   <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-3 max-w-md">
                     Associate Professor at RVCE, Department of Chemistry. 23 Years of Teaching and 18 Years of Research experience in inorganic nanomaterials.
                   </p>
@@ -255,7 +255,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
 
         {section.id === 'applications' && (
           <div className="mt-8 flex justify-center lg:justify-start">
-            <button onClick={onWaitlistClick} className="pointer-events-auto bg-cyan-400 hover:bg-cyan-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,229,255,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
+            <button onClick={onWaitlistClick} className="pointer-events-auto bg-gold-400 hover:bg-gold-300 text-black font-black text-sm md:text-lg py-3 md:py-4 px-8 md:px-12 rounded-full transition-all shadow-[0_0_20px_rgba(212,162,76,0.4)] hover:shadow-[0_0_30px_rgba(212,162,76,0.6)] uppercase tracking-widest hover:scale-105 active:scale-95">
               Pre-order Sensors
             </button>
           </div>
@@ -266,7 +266,7 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }} className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[60]">
           <span className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-black">Scroll to Explore</span>
           <div className="w-5 h-8 border-2 border-white/10 rounded-full flex justify-center p-1 relative bg-black/50">
-            <motion.div className="w-1 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#00e5ff]" animate={{ y: [0, 12, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} />
+            <motion.div className="w-1 h-2 bg-gold-400 rounded-full shadow-[0_0_10px_#d4a24c]" animate={{ y: [0, 12, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} />
           </div>
         </motion.div>
       )}
@@ -295,8 +295,8 @@ function CyberCursor() {
   }, []);
   return (
     <>
-      <motion.div className="fixed top-0 left-0 w-8 h-8 rounded-full border border-cyan-400 pointer-events-none z-[9999] hidden lg:block" animate={{ x: mousePos.x - 16, y: mousePos.y - 16 }} transition={{ type: 'spring', damping: 25, stiffness: 250 }} />
-      <motion.div className="fixed top-0 left-0 w-1 h-1 bg-cyan-400 rounded-full pointer-events-none z-[9999] hidden lg:block" animate={{ x: mousePos.x - 2, y: mousePos.y - 2 }} />
+      <motion.div className="fixed top-0 left-0 w-8 h-8 rounded-full border border-gold-400 pointer-events-none z-[9999] hidden lg:block" animate={{ x: mousePos.x - 16, y: mousePos.y - 16 }} transition={{ type: 'spring', damping: 25, stiffness: 250 }} />
+      <motion.div className="fixed top-0 left-0 w-1 h-1 bg-gold-400 rounded-full pointer-events-none z-[9999] hidden lg:block" animate={{ x: mousePos.x - 2, y: mousePos.y - 2 }} />
     </>
   );
 }
@@ -332,7 +332,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-black text-white font-sans selection:bg-cyan-500 selection:text-black min-h-screen cursor-crosshair overflow-x-hidden">
+    <div className="bg-black text-white font-sans selection:bg-gold-500 selection:text-black min-h-screen cursor-crosshair overflow-x-hidden">
       <WaitlistModal isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
 
       <CyberCursor />
@@ -355,10 +355,13 @@ export default function App() {
             className="fixed top-0 left-0 w-full p-6 md:p-8 flex justify-between items-start z-50 pointer-events-none"
           >
             <div className="flex flex-col pointer-events-auto">
-              <div className="text-2xl md:text-5xl font-black tracking-tighter uppercase text-white italic">VidyuthLabs</div>
+              <div className="flex items-center gap-3 md:gap-4">
+                <img src="/logo.png" alt="" width={56} height={56} className="w-9 h-9 md:w-14 md:h-14 shrink-0" />
+                <div className="text-2xl md:text-5xl font-black tracking-tighter uppercase text-white italic">VidyuthLabs</div>
+              </div>
               <div className="flex items-center gap-4 mt-2">
-                <div className="text-[10px] text-cyan-400 font-bold tracking-[0.4em] uppercase">Always on, always aware.</div>
-                <div className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
+                <div className="text-[10px] text-gold-400 font-bold tracking-[0.4em] uppercase">Always on, always aware.</div>
+                <div className="w-1 h-1 rounded-full bg-gold-400 animate-pulse" />
                 <div className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
                   <Clock />
                 </div>
@@ -377,7 +380,7 @@ export default function App() {
 
         <motion.div className="min-h-[60vh] flex flex-col items-start justify-center p-8 md:p-16 border-t border-white/5" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
            <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none mb-10 italic">Explore The <br/> Sensor Catalogue.</h2>
-           <button onClick={() => setShowUsecases(true)} className="group flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-black uppercase tracking-[0.2em] hover:bg-cyan-400 transition-all cursor-pointer">
+           <button onClick={() => setShowUsecases(true)} className="group flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-black uppercase tracking-[0.2em] hover:bg-gold-400 transition-all cursor-pointer">
               Browse Sensors &amp; Pre-order
               <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-2 transition-transform">➔</div>
            </button>
@@ -387,11 +390,11 @@ export default function App() {
       {/* Progress Footer */}
       <div className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-6">
         <div className="flex items-center gap-4">
-          <div className="text-[10px] font-mono text-cyan-400 font-black tracking-widest">
+          <div className="text-[10px] font-mono text-gold-400 font-black tracking-widest">
             {(SECTIONS.findIndex(s => s.id === activeSection) + 1).toString().padStart(2, '0')}
           </div>
           <div className="w-24 md:w-48 h-px bg-white/10 relative">
-            <motion.div className="absolute top-0 left-0 h-full bg-cyan-500 shadow-[0_0_15px_#00e5ff]" style={{ scaleX: smoothProgress, transformOrigin: 'left' }} />
+            <motion.div className="absolute top-0 left-0 h-full bg-gold-500 shadow-[0_0_15px_#d4a24c]" style={{ scaleX: smoothProgress, transformOrigin: 'left' }} />
           </div>
           <div className="text-[10px] font-mono text-gray-600 font-black">{SECTIONS.length.toString().padStart(2, '0')}</div>
         </div>
@@ -399,11 +402,11 @@ export default function App() {
 
       <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
         {SECTIONS.map((section) => (
-          <button key={section.id} onClick={() => scrollToSection(section.id)} aria-label={`Go to ${section.title}`} aria-current={section.id === activeSection ? 'step' : undefined} className="group relative flex items-center justify-end w-8 h-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded cursor-pointer">
-            <span aria-hidden="true" className="absolute right-10 px-3 py-1 bg-cyan-400 text-black text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all pointer-events-none whitespace-nowrap">
+          <button key={section.id} onClick={() => scrollToSection(section.id)} aria-label={`Go to ${section.title}`} aria-current={section.id === activeSection ? 'step' : undefined} className="group relative flex items-center justify-end w-8 h-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 rounded cursor-pointer">
+            <span aria-hidden="true" className="absolute right-10 px-3 py-1 bg-gold-400 text-black text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all pointer-events-none whitespace-nowrap">
               {section.title}
             </span>
-            <div className={`w-1 h-1 rounded-full transition-all duration-500 ${section.id === activeSection ? 'bg-cyan-400 scale-[3]' : 'bg-white/20'}`} />
+            <div className={`w-1 h-1 rounded-full transition-all duration-500 ${section.id === activeSection ? 'bg-gold-400 scale-[3]' : 'bg-white/20'}`} />
           </button>
         ))}
       </div>

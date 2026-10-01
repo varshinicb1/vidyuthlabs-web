@@ -34,14 +34,14 @@ export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPre
             <button
               onClick={onBack}
               autoFocus
-              className="group flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors mb-8 cursor-pointer"
+              className="group flex items-center gap-2 text-gray-400 hover:text-gold-400 transition-colors mb-8 cursor-pointer"
             >
               <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
               <span className="text-sm font-bold uppercase tracking-widest">Back</span>
             </button>
-            <div className="text-cyan-400 font-black text-xs uppercase tracking-[0.3em] mb-3">The Sensor Catalogue</div>
+            <div className="text-gold-400 font-black text-xs uppercase tracking-[0.3em] mb-3">The Sensor Catalogue</div>
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none mb-4 uppercase italic">
-              One Device.<br /><span className="text-cyan-400">Every Sensor.</span>
+              One Device.<br /><span className="text-gold-400">Every Sensor.</span>
             </h1>
             <p className="text-lg text-gray-400 max-w-2xl font-medium">
               The bare board is a gold ENIG screen-printed electrode. We coat the working electrode with
@@ -52,7 +52,7 @@ export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPre
           <div className="shrink-0">
             <button
               onClick={onPreorder}
-              className="bg-cyan-400 hover:bg-cyan-300 text-black font-black uppercase tracking-widest px-8 py-4 rounded-full transition-all hover:scale-105 cursor-pointer shadow-[0_0_25px_rgba(0,229,255,0.35)]"
+              className="bg-gold-400 hover:bg-gold-300 text-black font-black uppercase tracking-widest px-8 py-4 rounded-full transition-all hover:scale-105 cursor-pointer shadow-[0_0_25px_rgba(212,162,76,0.35)]"
             >
               Pre-order a kit
             </button>
@@ -71,7 +71,7 @@ export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPre
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.06 }}
-              className="group relative rounded-3xl border border-white/10 bg-gray-900/40 overflow-hidden hover:border-cyan-400/40 transition-colors"
+              className="group relative rounded-3xl border border-white/10 bg-gray-900/40 overflow-hidden hover:border-gold-400/40 transition-colors"
             >
               {/* 3D viewer */}
               <div
@@ -116,7 +116,7 @@ export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPre
                   </div>
                   <button
                     onClick={onPreorder}
-                    className="shrink-0 inline-flex items-center justify-center gap-2 bg-white text-black hover:bg-cyan-400 font-black uppercase tracking-widest text-sm px-6 py-3 rounded-full transition-all cursor-pointer"
+                    className="shrink-0 inline-flex items-center justify-center gap-2 bg-white text-black hover:bg-gold-400 font-black uppercase tracking-widest text-sm px-6 py-3 rounded-full transition-all cursor-pointer"
                   >
                     Pre-order <ArrowRight className="w-4 h-4" />
                   </button>
@@ -128,7 +128,7 @@ export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPre
 
         {/* Footer CTA */}
         <div className="mt-16 text-center">
-          <div className="bg-cyan-400 p-10 md:p-14 rounded-[3rem] text-black">
+          <div className="bg-gold-400 p-10 md:p-14 rounded-[3rem] text-black">
             <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-3 italic">Reserve your kit today.</h2>
             <p className="text-base md:text-lg font-bold mb-8 opacity-80">
               Sensor kits are open for pre-order worldwide. The AnalyteX device is coming soon.

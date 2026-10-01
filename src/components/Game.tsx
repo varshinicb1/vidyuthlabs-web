@@ -243,11 +243,11 @@ function QuantumFabric() {
     <mesh ref={meshRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, -3, -5]}>
       <planeGeometry args={[100, 100, 50, 50]} />
       <meshStandardMaterial 
-        color="#00e5ff" 
+        color="#d4a24c" 
         wireframe 
         transparent 
         opacity={0.03} 
-        emissive="#00e5ff"
+        emissive="#d4a24c"
         emissiveIntensity={0.5}
       />
     </mesh>
