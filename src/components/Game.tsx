@@ -45,7 +45,7 @@ function MobilePhone({ progress }: { progress: number }) {
           <planeGeometry args={[2.0, 0.6]} />
           <meshBasicMaterial color="#111" />
         </mesh>
-        <Text position={[-0.8, 1.8, 0.01]} fontSize={0.12} color="#00ffcc" anchorX="left">VidyuthLabs</Text>
+        <Text position={[-0.8, 1.8, 0.01]} fontSize={0.12} color="#d4a24c" anchorX="left">VidyuthLabs</Text>
         <Text position={[0.8, 1.8, 0.01]} fontSize={0.08} color="gray" anchorX="right">SYNCED</Text>
         
         {/* Dashboard Cards */}
@@ -58,7 +58,7 @@ function MobilePhone({ progress }: { progress: number }) {
         <Text position={[-0.8, 0.70, 0.01]} fontSize={0.20} color="#ff3366" anchorX="left">12 ppb</Text>
 
         {/* Graph Mockup */}
-        <Line points={[[-0.8, 0.4, 0.01], [-0.4, 0.4, 0.01], [0, 0.65, 0.01], [0.4, 0.35, 0.01], [0.8, 0.55, 0.01]]} color="#00ffcc" lineWidth={2} />
+        <Line points={[[-0.8, 0.4, 0.01], [-0.4, 0.4, 0.01], [0, 0.65, 0.01], [0.4, 0.35, 0.01], [0.8, 0.55, 0.01]]} color="#d4a24c" lineWidth={2} />
 
         <mesh position={[0, -0.4, 0]}>
           <planeGeometry args={[1.8, 0.8]} />
@@ -98,7 +98,7 @@ function ApplicationsVisual({ progress }: { progress: number }) {
           <group key={i} position={[0, y, 0]}>
             <mesh position={[Math.cos(angle) * 1.5, 0, Math.sin(angle) * 1.5]}>
               <sphereGeometry args={[0.2]} />
-              <meshPhysicalMaterial color="#00ffcc" metalness={0.8} roughness={0.2} />
+              <meshPhysicalMaterial color="#d4a24c" metalness={0.8} roughness={0.2} />
             </mesh>
             <mesh position={[-Math.cos(angle) * 1.5, 0, -Math.sin(angle) * 1.5]}>
               <sphereGeometry args={[0.2]} />
@@ -135,14 +135,14 @@ function WhyUsVisual({ progress }: { progress: number }) {
         </mesh>
         <mesh position={[0, 0, 0.1]}>
           <planeGeometry args={[1.5, 1.5]} />
-          <meshBasicMaterial color="#00ffcc" wireframe />
+          <meshBasicMaterial color="#d4a24c" wireframe />
         </mesh>
         {/* Data lines */}
         {[...Array(8)].map((_, i) => (
           <Line key={i} points={[
             [Math.cos(i * Math.PI/4) * 1, Math.sin(i * Math.PI/4) * 1, 0],
             [Math.cos(i * Math.PI/4) * 3, Math.sin(i * Math.PI/4) * 3, 0]
-          ]} color="#00ffcc" transparent opacity={0.5} />
+          ]} color="#d4a24c" transparent opacity={0.5} />
         ))}
       </group>
       </Float>
@@ -416,7 +416,7 @@ function Scene() {
       <Environment files="/hdri/city.exr" />
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
-      <directionalLight position={[-10, 10, -5]} intensity={0.5} color="#00ffcc" />
+      <directionalLight position={[-10, 10, -5]} intensity={0.5} color="#d4a24c" />
       
       <group ref={analyteRef}>
         <AnalyteX />
@@ -436,10 +436,10 @@ function Scene() {
       <Grid
         position={[0, -2.5, 0]}
         sectionSize={1.5}
-        sectionColor="#008899"
+        sectionColor="#8a6a32"
         sectionThickness={1.5}
         cellSize={0.5}
-        cellColor="#003344"
+        cellColor="#2a2010"
         cellThickness={0.8}
         infiniteGrid
         fadeDistance={40}

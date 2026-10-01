@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, Check, ArrowRight } from 'lucide-react';
 import { CATALOGUE } from '../data/catalogue';
 import { ErrorBoundary } from './ErrorBoundary';
+import { SiteFooter } from './SiteFooter';
 
 const SpeViewer = lazy(() =>
   import('./three/SpeViewer').then((m) => ({ default: m.SpeViewer })),
@@ -142,6 +143,7 @@ export function UsecasesPage({ onBack, onPreorder }: { onBack: () => void; onPre
           </div>
         </div>
       </div>
+      <SiteFooter />
     </motion.div>
   );
 }
