@@ -22,6 +22,7 @@ export const LINKEDIN = {
 /** Registered company details, shown in the footer and the legal pages. */
 export const COMPANY = {
   legalName: 'VidyuthLabs Technologies Private Limited',
+  cin: 'U62020KA2026PTC228561',
   incorporated: '25 September 2026',
   address: [
     'TSK Residency, 3rd Floor, 3rd, Annayappa Block',

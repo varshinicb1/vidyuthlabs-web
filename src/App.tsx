@@ -47,7 +47,7 @@ const TEAM: TeamMember[] = [
   {
     name: 'Varshini CB',
     role: 'Founder & CEO',
-    bio: 'Designing space-grade subsystems for Team Antariksh. Bringing orbital-class hardware engineering to portable bio-detectors.',
+    bio: 'Leads VidyuthLabs and the AnalyteX and NanoX programme, from hardware design through to market. Electrical Engineering, RV College of Engineering (RVCE), Bengaluru.',
     tags: ['Hardware Design', 'Embedded Systems', 'Materials Science'],
     img: founderImg,
     linkedin: LINKEDIN.varshini,

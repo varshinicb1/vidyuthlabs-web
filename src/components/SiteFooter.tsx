@@ -11,6 +11,7 @@ export function SiteFooter() {
             <span className="text-white font-black uppercase italic tracking-tighter text-xl">VidyuthLabs</span>
           </div>
           <p className="mt-4 text-gray-300 font-semibold">{COMPANY.legalName}</p>
+          <p className="mt-1">CIN: {COMPANY.cin}</p>
           <p className="mt-1">
             DPIIT-recognised startup ·{' '}
             <a href={DPIIT.verifyUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-white/20 underline-offset-4 hover:text-gold-400">
