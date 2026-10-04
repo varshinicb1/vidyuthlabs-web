@@ -293,15 +293,6 @@ function SectionContent({ section, onWaitlistClick }: SectionContentProps) {
           </div>
         )}
       </motion.div>
-      
-      {section.id === 'hero' && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }} className="absolute top-[calc(100dvh-8rem)] left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[60]">
-          <span className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-black">Scroll to Explore</span>
-          <div className="w-5 h-8 border-2 border-white/10 rounded-full flex justify-center p-1 relative bg-black/50">
-            <motion.div className="w-1 h-2 bg-gold-400 rounded-full shadow-[0_0_10px_#d4a24c]" animate={{ y: [0, 12, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} />
-          </div>
-        </motion.div>
-      )}
     </div>
   );
 }
