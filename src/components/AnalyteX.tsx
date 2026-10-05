@@ -267,10 +267,10 @@ export function AnalyteX() {
             <group position={[0, 1.0, 0]}>
               <Text position={[-0.8, 0, 0]} fontSize={0.05} color="gray" anchorX="left">14:26</Text>
               <group position={[0.7, 0, 0]}>
-                <Text position={[-0.15, 0, 0]} fontSize={0.05} color="#d4a24c" anchorX="right">100%</Text>
-                <mesh><planeGeometry args={[0.1, 0.05]} /><meshBasicMaterial color="#d4a24c" wireframe /></mesh>
-                <mesh><planeGeometry args={[0.08, 0.03]} /><meshBasicMaterial color="#d4a24c" /></mesh>
-                <mesh position={[0.055, 0, 0]}><planeGeometry args={[0.01, 0.02]} /><meshBasicMaterial color="#d4a24c" /></mesh>
+                <Text position={[-0.15, 0, 0]} fontSize={0.05} color="#00ffcc" anchorX="right">100%</Text>
+                <mesh><planeGeometry args={[0.1, 0.05]} /><meshBasicMaterial color="#00ffcc" wireframe /></mesh>
+                <mesh><planeGeometry args={[0.08, 0.03]} /><meshBasicMaterial color="#00ffcc" /></mesh>
+                <mesh position={[0.055, 0, 0]}><planeGeometry args={[0.01, 0.02]} /><meshBasicMaterial color="#00ffcc" /></mesh>
               </group>
             </group>
             {screenState === 'READY' && (
@@ -278,9 +278,9 @@ export function AnalyteX() {
                 <Text position={[0, 0.15, 0]} fontSize={0.16} color="white" letterSpacing={0.05}>AnalyteX</Text>
                 <Text position={[0, -0.1, 0]} fontSize={0.09} color="gray">Awaiting Sensor Insertion</Text>
                 <group position={[0, 0.45, 0]}>
-                  <mesh ref={pulseRef}><ringGeometry args={[0.08, 0.1, 32]} /><meshBasicMaterial color="#d4a24c" transparent /></mesh>
-                  <mesh ref={hexagonRef}><ringGeometry args={[0.12, 0.13, 6]} /><meshBasicMaterial color="#d4a24c" transparent opacity={0.5} /></mesh>
-                  <mesh><circleGeometry args={[0.02, 32]} /><meshBasicMaterial color="#d4a24c" /></mesh>
+                  <mesh ref={pulseRef}><ringGeometry args={[0.08, 0.1, 32]} /><meshBasicMaterial color="#00ffcc" transparent /></mesh>
+                  <mesh ref={hexagonRef}><ringGeometry args={[0.12, 0.13, 6]} /><meshBasicMaterial color="#00ffcc" transparent opacity={0.5} /></mesh>
+                  <mesh><circleGeometry args={[0.02, 32]} /><meshBasicMaterial color="#00ffcc" /></mesh>
                 </group>
               </group>
             )}
@@ -330,7 +330,7 @@ export function AnalyteX() {
             )}
             {screenState === 'SCANNING' && (
               <group>
-                <Text position={[0, 0.7, 0]} fontSize={0.14} color="#d4a24c" letterSpacing={0.05}>ANALYZING</Text>
+                <Text position={[0, 0.7, 0]} fontSize={0.14} color="#00ffcc" letterSpacing={0.05}>ANALYZING</Text>
                 <Text position={[0, 0.5, 0]} fontSize={0.08} color="gray">Voltage (V) vs Current (µA)</Text>
                 <group ref={curveRef} position={[0, -0.25, 0]}>
                   <Line points={[[-0.8, -0.5, 0], [0.8, -0.5, 0]]} color="#444" lineWidth={1} />
@@ -343,7 +343,7 @@ export function AnalyteX() {
                     <bufferGeometry ref={cvGeometryRef}>
                       <bufferAttribute attach="attributes-position" count={cvPositions.length / 3} array={cvPositions} itemSize={3} />
                     </bufferGeometry>
-                    <lineBasicMaterial color="#d4a24c" />
+                    <lineBasicMaterial color="#00ffcc" />
                   </line>
                   <mesh ref={plotterHeadRef} visible={false}><circleGeometry args={[0.03, 16]} /><meshBasicMaterial color="#ffffff" /></mesh>
                 </group>
@@ -351,15 +351,15 @@ export function AnalyteX() {
             )}
             {screenState === 'SYNCING' && (
               <group>
-                <Text position={[0, 0.15, 0]} fontSize={0.16} color="#d4a24c" letterSpacing={0.05}>SYNCING TO MOBILE</Text>
+                <Text position={[0, 0.15, 0]} fontSize={0.16} color="#00ffcc" letterSpacing={0.05}>SYNCING TO MOBILE</Text>
                 <Text position={[0, -0.1, 0]} fontSize={0.09} color="gray">BLE Connected</Text>
                 <group ref={syncRef} position={[0, 0.45, 0]}>
-                  <mesh><ringGeometry args={[0.08, 0.12, 32, 1, 0, Math.PI * 1.5]} /><meshBasicMaterial color="#d4a24c" /></mesh>
-                  <mesh position={[0, 0.1, 0]}><circleGeometry args={[0.02, 16]} /><meshBasicMaterial color="#d4a24c" /></mesh>
+                  <mesh><ringGeometry args={[0.08, 0.12, 32, 1, 0, Math.PI * 1.5]} /><meshBasicMaterial color="#00ffcc" /></mesh>
+                  <mesh position={[0, 0.1, 0]}><circleGeometry args={[0.02, 16]} /><meshBasicMaterial color="#00ffcc" /></mesh>
                 </group>
                 <group ref={dataParticlesRef} position={[0, 0.45, 0]}>
                   {[...Array(5)].map((_, i) => (
-                    <mesh key={i}><planeGeometry args={[0.01, 0.05]} /><meshBasicMaterial color="#d4a24c" transparent /></mesh>
+                    <mesh key={i}><planeGeometry args={[0.01, 0.05]} /><meshBasicMaterial color="#00ffcc" transparent /></mesh>
                   ))}
                 </group>
               </group>
@@ -374,8 +374,8 @@ export function AnalyteX() {
                     <Text position={[0, 0.8, 0]} fontSize={0.12} color="#444">MERCURY</Text>
                     <Text position={[0, 0.4, 0]} fontSize={0.12} color="#444">COPPER</Text>
                     <group position={[0, 0, 0]}>
-                      <Text ref={troponinTextRef} position={[0, 0, 0]} fontSize={0.22} color="#d4a24c" letterSpacing={0.05}>LEAD (Pb)</Text>
-                      <mesh ref={resultBoxRef} position={[0, -0.5, 0]}><planeGeometry args={[1.5, 0.45]} /><meshBasicMaterial color="#d4a24c" transparent opacity={0.15} /></mesh>
+                      <Text ref={troponinTextRef} position={[0, 0, 0]} fontSize={0.22} color="#00ffcc" letterSpacing={0.05}>LEAD (Pb)</Text>
+                      <mesh ref={resultBoxRef} position={[0, -0.5, 0]}><planeGeometry args={[1.5, 0.45]} /><meshBasicMaterial color="#00ffcc" transparent opacity={0.15} /></mesh>
                       <Text ref={concentrationTextRef} position={[0, -0.5, 0]} fontSize={0.22} color="white" letterSpacing={0.05}>12 ppb</Text>
                       <Text ref={warningRef} position={[0, -1.0, 0]} fontSize={0.08} color="#ff3366" letterSpacing={0.05}>EXCEEDS SAFE LIMIT (10 ppb)</Text>
                     </group>
@@ -388,7 +388,7 @@ export function AnalyteX() {
         <group position={[0, -1.2, 0.32]}>
           <mesh position={[-0.5, 0, 0]}><circleGeometry args={[0.2, 32]} /><meshPhysicalMaterial color="#333" metalness={0.7} roughness={0.3} clearcoat={0.5} /></mesh>
           <mesh position={[0.5, 0, 0]}><circleGeometry args={[0.2, 32]} /><meshPhysicalMaterial color="#333" metalness={0.7} roughness={0.3} clearcoat={0.5} /></mesh>
-          <mesh position={[0, 0, 0]}><circleGeometry args={[0.25, 32]} /><meshPhysicalMaterial color="#d4a24c" metalness={0.4} roughness={0.2} clearcoat={0.8} /></mesh>
+          <mesh position={[0, 0, 0]}><circleGeometry args={[0.25, 32]} /><meshPhysicalMaterial color="#00ffcc" metalness={0.4} roughness={0.2} clearcoat={0.8} /></mesh>
         </group>
         <group position={[0, -1.75, 0]}>
           <mesh><boxGeometry args={[1.6, 0.1, 0.2]} /><meshPhysicalMaterial color="#000" roughness={0.8} metalness={0.2} /></mesh>
@@ -396,28 +396,28 @@ export function AnalyteX() {
         </group>
         <group ref={hudRef}>
           <group position={[1.5, 1, 0.5]}>
-            <Line points={[[0, 0, 0], [-0.5, -0.5, -0.2]]} color="#d4a24c" lineWidth={1} transparent opacity={0.5} />
-            <Text position={[0.1, 0, 0]} fontSize={0.08} color="#d4a24c" anchorX="left">ALUMINUM 6061 CHASSIS</Text>
+            <Line points={[[0, 0, 0], [-0.5, -0.5, -0.2]]} color="#00ffcc" lineWidth={1} transparent opacity={0.5} />
+            <Text position={[0.1, 0, 0]} fontSize={0.08} color="#00ffcc" anchorX="left">ALUMINUM 6061 CHASSIS</Text>
           </group>
           <group position={[-1.5, 0, 0.5]}>
-            <Line points={[[0, 0, 0], [0.5, 0.2, -0.2]]} color="#d4a24c" lineWidth={1} transparent opacity={0.5} />
-            <Text position={[-0.1, 0, 0]} fontSize={0.08} color="#d4a24c" anchorX="right">2.8" TOUCHSCREEN</Text>
+            <Line points={[[0, 0, 0], [0.5, 0.2, -0.2]]} color="#00ffcc" lineWidth={1} transparent opacity={0.5} />
+            <Text position={[-0.1, 0, 0]} fontSize={0.08} color="#00ffcc" anchorX="right">2.8" TOUCHSCREEN</Text>
           </group>
           <group position={[1.5, -1.2, 0.5]}>
-            <Line points={[[0, 0, 0], [-0.5, 0.2, -0.2]]} color="#d4a24c" lineWidth={1} transparent opacity={0.5} />
-            <Text position={[0.1, 0, 0]} fontSize={0.08} color="#d4a24c" anchorX="left">TACTILE CONTROLS</Text>
+            <Line points={[[0, 0, 0], [-0.5, 0.2, -0.2]]} color="#00ffcc" lineWidth={1} transparent opacity={0.5} />
+            <Text position={[0.1, 0, 0]} fontSize={0.08} color="#00ffcc" anchorX="left">TACTILE CONTROLS</Text>
           </group>
         </group>
         <mesh ref={scannerRef} position={[0, 0.5, 0.35]} visible={false}>
           <planeGeometry args={[2.5, 0.05]} />
-          <meshBasicMaterial color="#d4a24c" transparent opacity={0.5} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#00ffcc" transparent opacity={0.5} side={THREE.DoubleSide} />
         </mesh>
         <primitive object={signalWaveObject} ref={signalWaveRef} position={[0, 2.5, 0]} visible={false}>
-           <lineBasicMaterial color="#d4a24c" transparent opacity={0.4} />
+           <lineBasicMaterial color="#00ffcc" transparent opacity={0.4} />
         </primitive>
         <group ref={dataStreamRef} visible={false}>
           {[...Array(20)].map((_, i) => (
-            <mesh key={i}><sphereGeometry args={[0.05, 8, 8]} /><meshBasicMaterial color="#d4a24c" transparent /></mesh>
+            <mesh key={i}><sphereGeometry args={[0.05, 8, 8]} /><meshBasicMaterial color="#00ffcc" transparent /></mesh>
           ))}
         </group>
       </Float>
