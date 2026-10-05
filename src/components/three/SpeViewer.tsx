@@ -27,7 +27,7 @@ export function SpeViewer({ coating, code }: { coating: string; code: string }) 
         <ambientLight intensity={0.9} />
         <hemisphereLight args={['#ffffff', '#1a2028', 0.7]} />
         <directionalLight position={[3, 5, 6]} intensity={2.4} />
-        <directionalLight position={[-5, 2, 3]} intensity={0.9} color="#d4a24c" />
+        <directionalLight position={[-5, 2, 3]} intensity={0.9} color="#00e5ff" />
         <pointLight position={[0, 1, 4]} intensity={1.3} color="#ffffff" />
         <pointLight position={[0, 2, 3]} intensity={0.7} color={coating} />
         <Suspense fallback={null}>
