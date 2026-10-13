@@ -382,10 +382,10 @@ export default function App() {
                 <img src="/logo.png" alt="" width={56} height={56} className="w-9 h-9 md:w-14 md:h-14 shrink-0" />
                 <div className="text-2xl md:text-5xl font-black tracking-tighter uppercase text-white italic">VidyuthLabs</div>
               </div>
-              <div className="flex items-center gap-4 mt-2">
-                <div className="text-[10px] text-gold-400 font-bold tracking-[0.4em] uppercase">Always on, always aware.</div>
-                <div className="w-1 h-1 rounded-full bg-gold-400 animate-pulse" />
-                <div className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 md:gap-4 mt-2">
+                <div className="text-[10px] text-gold-400 font-bold tracking-[0.2em] md:tracking-[0.4em] uppercase whitespace-nowrap">Always on, always aware.</div>
+                <div className="w-1 h-1 rounded-full bg-gold-400 animate-pulse shrink-0" />
+                <div className="text-[10px] font-mono text-gray-400 uppercase tracking-widest whitespace-nowrap">
                   <Clock />
                 </div>
               </div>
