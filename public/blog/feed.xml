@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>VidyuthLabs Blog</title>
+    <link>https://vidyuthlabs.co.in/blog/</link>
+    <description>Portable potentiostats, screen-printed electrode sensors and field testing of water, food and soil.</description>
+    <language>en-in</language>
+    <item>
+      <title>VidyuthLabs and BITS Pilani, Hyderabad Campus collaborate on portable electrochemical sensing</title>
+      <link>https://vidyuthlabs.co.in/blog/vidyuthlabs-bits-pilani-hyderabad-collaboration/</link>
+      <guid>https://vidyuthlabs.co.in/blog/vidyuthlabs-bits-pilani-hyderabad-collaboration/</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <description>VidyuthLabs is collaborating with BITS Pilani, Hyderabad Campus to develop portable potentiostat applications, starting with heavy-metal sensors for water, food and soil.</description>
+    </item>
+    <item>
+      <title>What is a portable potentiostat? A practical guide for field electrochemistry</title>
+      <link>https://vidyuthlabs.co.in/blog/what-is-a-portable-potentiostat/</link>
+      <guid>https://vidyuthlabs.co.in/blog/what-is-a-portable-potentiostat/</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <description>How a potentiostat works, what CV, DPV and EIS measure, and what to look for in a portable or handheld potentiostat for field testing.</description>
+    </item>
+    <item>
+      <title>Testing drinking water for lead, cadmium, arsenic and mercury: limits and on-site methods</title>
+      <link>https://vidyuthlabs.co.in/blog/heavy-metal-testing-drinking-water/</link>
+      <guid>https://vidyuthlabs.co.in/blog/heavy-metal-testing-drinking-water/</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Indian (BIS IS 10500) and WHO limits for heavy metals in drinking water, how labs test for them, and how portable electrochemical sensors screen water on site.</description>
+    </item>
+    <item>
+      <title>Screen-printed electrodes (SPEs) explained: how they work and why they matter for sensing</title>
+      <link>https://vidyuthlabs.co.in/blog/screen-printed-electrodes-explained/</link>
+      <guid>https://vidyuthlabs.co.in/blog/screen-printed-electrodes-explained/</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <description>What screen-printed electrodes are, the working, reference and counter electrodes on a single strip, electrode materials, nanomaterial coatings, and where SPE sensors are used.</description>
+    </item>
+    <item>
+      <title>Formalin in fish: why it is used, why it is harmful, and how to screen for it</title>
+      <link>https://vidyuthlabs.co.in/blog/formalin-in-fish-detection/</link>
+      <guid>https://vidyuthlabs.co.in/blog/formalin-in-fish-detection/</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Why formalin is illegally added to fish and seafood, the health risk, why some fish contain natural formaldehyde, and the options for rapid on-site screening.</description>
+    </item>
+    <item>
+      <title>Heavy metals in food and soil: why testing matters and how portable sensors help</title>
+      <link>https://vidyuthlabs.co.in/blog/heavy-metals-in-food-and-soil/</link>
+      <guid>https://vidyuthlabs.co.in/blog/heavy-metals-in-food-and-soil/</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <description>How heavy metals reach crops and food, Indian food-safety rules on contaminants, how soil and food samples are prepared, and where portable electrochemical sensors fit.</description>
+    </item>
+  </channel>
+</rss>
