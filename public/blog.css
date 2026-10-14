@@ -1,0 +1,74 @@
+/* Blog pages: same palette and type as legal.css, with article and index layouts. */
+:root {
+  --bg: #000;
+  --surface: #0b0d10;
+  --text: #d1d5db;
+  --muted: #9ca3af;
+  --heading: #fff;
+  --accent: #d4a24c;
+  --rule: rgba(255, 255, 255, 0.1);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); }
+body {
+  color: var(--text);
+  font: 17px/1.75 "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: #f0c878; }
+img { max-width: 100%; height: auto; display: block; }
+
+header, main, footer { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--rule); }
+header .brand { display: flex; align-items: center; gap: 12px; color: var(--heading); text-decoration: none; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -0.03em; font-size: 22px; }
+header .brand img { width: 36px; height: 36px; }
+header nav { display: flex; gap: 18px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
+header nav a { color: var(--muted); text-decoration: none; }
+header nav a:hover, header nav a[aria-current="page"] { color: var(--accent); }
+
+main { padding-top: 36px; padding-bottom: 56px; }
+.crumbs { font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+.crumbs a { color: var(--muted); }
+.eyebrow { color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3em; margin: 0 0 10px; }
+h1 { color: var(--heading); font-size: clamp(2rem, 6vw, 2.75rem); line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 12px; }
+.meta { color: var(--muted); font-size: 14px; margin: 0 0 28px; }
+.lede { font-size: 19px; color: #e5e7eb; }
+h2 { color: var(--heading); font-size: 23px; line-height: 1.3; margin: 44px 0 10px; letter-spacing: -0.01em; }
+h3 { color: var(--heading); font-size: 18px; margin: 28px 0 6px; }
+ul, ol { padding-left: 1.25em; }
+li { margin: 6px 0; }
+strong { color: #f3f4f6; }
+
+figure { margin: 28px 0; }
+figure img { border-radius: 14px; border: 1px solid var(--rule); width: 100%; }
+figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; }
+
+.table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid var(--rule); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { color: var(--heading); background: var(--surface); }
+tr:last-child td { border-bottom: 0; }
+
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 18px 20px; margin: 28px 0; }
+.card p { margin: 0 0 10px; }
+.card p:last-child { margin: 0; }
+.cta { display: inline-block; background: var(--accent); color: #000; font-weight: 900; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; font-size: 13px; padding: 12px 22px; border-radius: 999px; }
+.cta:hover { background: #f0c878; color: #000; }
+
+/* Index */
+.posts { list-style: none; padding: 0; margin: 32px 0 0; display: grid; gap: 16px; }
+.posts li { margin: 0; }
+.post-card { display: block; background: var(--surface); border: 1px solid var(--rule); border-radius: 16px; padding: 22px; text-decoration: none; color: var(--text); transition: border-color .15s; }
+.post-card:hover { border-color: rgba(212, 162, 76, 0.6); color: var(--text); }
+.post-card .tag { color: var(--accent); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.25em; }
+.post-card h2 { margin: 8px 0 6px; font-size: 21px; }
+.post-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+.post-card img { border-radius: 10px; margin: 0 0 16px; aspect-ratio: 1200 / 630; object-fit: cover; width: 100%; }
+
+.related { border-top: 1px solid var(--rule); margin-top: 48px; padding-top: 8px; }
+.related ul { padding-left: 1.1em; }
+
+footer { border-top: 1px solid var(--rule); padding-top: 24px; padding-bottom: 40px; font-size: 13px; color: var(--muted); }
+footer a { color: var(--muted); }

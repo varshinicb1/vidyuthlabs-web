@@ -35,6 +35,7 @@ export function SiteFooter() {
             {CONTACT_EMAIL}
           </a>
           <ul className="mt-5 space-y-2">
+            <li><a href="/blog/" className="hover:text-gold-400 transition-colors">Blog</a></li>
             <li><a href="/privacy/" className="hover:text-gold-400 transition-colors">Privacy Policy</a></li>
             <li><a href="/terms/" className="hover:text-gold-400 transition-colors">Terms of Use</a></li>
           </ul>
