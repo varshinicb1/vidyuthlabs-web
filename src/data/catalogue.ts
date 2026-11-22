@@ -44,7 +44,7 @@ export const CATALOGUE: SpeItem[] = [
     analytes: 'Pb²⁺ · Cd²⁺ · Hg²⁺ · As³⁺',
     techniques: 'Anodic Stripping Voltammetry',
     description:
-      'A bismuth/nanomaterial-modified screen-printed electrode tuned for anodic stripping voltammetry of toxic heavy metals in drinking water, groundwater and wastewater. Drop your sample, run the pre-loaded method, and read trace-level lead, cadmium, mercury and arsenic directly on the device — no benchtop instrument, no shipping samples to a lab.',
+      'A bismuth/nanomaterial-modified screen-printed electrode tuned for anodic stripping voltammetry of toxic heavy metals in drinking water, groundwater and wastewater. Drop your sample, run the pre-loaded method, and read trace-level lead, cadmium, mercury and arsenic in the app, or on the optional screen — no benchtop instrument, no shipping samples to a lab.',
     whyBuy: [
       'Screen contamination where it happens — wells, taps, rivers and treatment lines — instead of waiting days for a lab.',
       'Trace-level sensitivity for the metals that matter most in drinking-water safety.',

@@ -86,12 +86,12 @@ export const POSTS = [
   <li><strong>Current range and resolution:</strong> trace analysis needs low-current sensitivity.</li>
   <li><strong>Sensor compatibility:</strong> a standard connector for screen-printed electrodes makes it easy to change applications.</li>
   <li><strong>Software:</strong> clear results for non-specialists, with raw data available for experts.</li>
-  <li><strong>Connectivity and storage:</strong> Wi-Fi, Bluetooth or USB to move results off the device.</li>
+  <li><strong>Connectivity and storage:</strong> Bluetooth or USB to move results off the device.</li>
   <li><strong>Cost per test:</strong> the instrument price matters, but so does the price of each sensor.</li>
 </ul>
 
 <h2>AnalyteX: our portable potentiostat</h2>
-<p>AnalyteX is the handheld potentiostat we are building at VidyuthLabs. It has a 2.8-inch touchscreen, Wi-Fi, Bluetooth Low Energy and USB, and runs CV, DPV and EIS. It pairs with NanoX screen-printed electrodes, each coated with a nanomaterial chosen for a specific test, and a mobile app that turns raw signals into clear results. One device covers many applications: you change the sensor, not the instrument.</p>
+<p>AnalyteX is the handheld potentiostat we are building at VidyuthLabs. It has an optional 2.8-inch touchscreen, Bluetooth Low Energy and USB, and runs CV, DPV and EIS. It pairs with NanoX screen-printed electrodes, each coated with a nanomaterial chosen for a specific test, and a mobile app that turns raw signals into clear results. One device covers many applications: you change the sensor, not the instrument.</p>
 
 <div class="card">
   <p><strong>AnalyteX is open for pre-order.</strong> Tell us your application and we will recommend the right sensor.</p>
@@ -154,7 +154,7 @@ export const POSTS = [
 <p>On-site electrochemical screening does not replace accredited laboratory testing. It makes testing frequent and fast enough to catch problems early, and sends only the samples that matter to the lab.</p>
 
 <h2>How VidyuthLabs approaches it</h2>
-<p>Our AnalyteX handheld potentiostat runs voltammetric methods on NanoX screen-printed electrodes, each coated with nanomaterials for a specific test, including sensors aimed at lead, cadmium, mercury and arsenic. Results show on the device and sync to a mobile app. We are developing these applications in collaboration with <a href="/blog/vidyuthlabs-bits-pilani-hyderabad-collaboration/">BITS Pilani, Hyderabad Campus</a>.</p>
+<p>Our AnalyteX handheld potentiostat runs voltammetric methods on NanoX screen-printed electrodes, each coated with nanomaterials for a specific test, including sensors aimed at lead, cadmium, mercury and arsenic. Results show in the mobile app, or on the optional screen. We are developing these applications in collaboration with <a href="/blog/vidyuthlabs-bits-pilani-hyderabad-collaboration/">BITS Pilani, Hyderabad Campus</a>.</p>
 
 <div class="card">
   <p><strong>Need to test water for heavy metals?</strong> Tell us which metals and what kind of water, and we will tell you which sensor fits.</p>
