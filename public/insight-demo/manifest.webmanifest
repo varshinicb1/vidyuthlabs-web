@@ -1,6 +1,6 @@
 {
- "name": "Insight by Vidyuthlabs",
- "short_name": "Insight",
+ "name": "Insight preview by Vidyuthlabs",
+ "short_name": "Insight preview",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
